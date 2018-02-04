@@ -16,6 +16,9 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
+Vue.prototype.$db = db
+db.insert([{ a: 5 }, { a: 42 }])
+
 /* eslint-disable no-new */
 new Vue({
   components: { App },
@@ -23,7 +26,3 @@ new Vue({
   store,
   template: '<App/>'
 }).$mount('#app')
-Vue.prototype.$db = db
-
-db.insert([{ a: 5 }, { a: 42 }])
-db.insert([{test: 'haha'}])
