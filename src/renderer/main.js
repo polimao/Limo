@@ -5,14 +5,12 @@ import App from './App'
 import router from './router'
 import store from './store'
 import db from './datastore'
-
-// import path from 'path'
-// import { remote } from 'electron'
-// console.log(require.resolve('electron'))
-// console.log(path.join(remote.app.getPath('userData'), '/data.db'))
-// import 'bootstrap/dist/css/bootstrap.css'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+Vue.use(ElementUI)
+
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 

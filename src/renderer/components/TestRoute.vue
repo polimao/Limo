@@ -4,9 +4,8 @@
     <main>
       <div class="left-side">
         <span class="title">
-          Welcome to your new project!
+          Welcome to your test!
         </span>
-        <system-information></system-information>
       </div>
 
       <div class="right-side">

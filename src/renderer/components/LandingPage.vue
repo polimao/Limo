@@ -6,6 +6,15 @@
         <span class="title">
           Welcome to your new project!
         </span>
+        <div>
+  <el-button>默认按钮</el-button>
+  <el-button type="primary">主要按钮</el-button>
+  <el-button type="success">成功按钮</el-button>
+  <el-button type="info">信息按钮</el-button>
+  <el-button type="warning">警告按钮</el-button>
+  <el-button type="danger">危险按钮</el-button>
+</div>
+
         <system-information></system-information>
       </div>
 
@@ -15,6 +24,7 @@
           <div class="title">Limao Test</div>
           <div class="btn btn-info btn-default">L </div>
           <p>
+            <el-button type="primary" :loading="true">加载中</el-button>
             electron-vue comes packed with detailed documentation that covers everything from
             internal configurations, using the project structure, building your application,
             and so much more.
