@@ -7,13 +7,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'landing-page',
-      component: require('@/components/LandingPage').default
+      name: 'home',
+      component: require('@/components/Home').default
     },
     {
-      path: '/test-route',
-      name: 'test-route',
-      component: require('@/components/TestRoute').default
+      path: '/file-compare',
+      name: 'file-compare',
+      component: require('@/components/FileCompare').default
     },
     {
       path: '*',

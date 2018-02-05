@@ -4,8 +4,20 @@
     <main>
       <div class="left-side">
         <span class="title">
-          Welcome to your test!
+          Welcome to your new project!
         </span>
+        <div>
+      <router-link to='/file-compare'><el-button>File Compare</el-button></router-link>
+
+  <!-- <el-button type="primary">主要按钮</el-button>
+  <el-button type="success">成功按钮</el-button>
+  <el-button type="info">信息按钮</el-button>
+  <el-button type="warning">警告按钮</el-button>
+  <el-button type="danger">危险按钮</el-button> -->
+
+</div>
+
+        <system-information></system-information>
       </div>
 
       <div class="right-side">
@@ -14,6 +26,7 @@
           <div class="title">Limao Test</div>
           <div class="btn btn-info btn-default">L </div>
           <p>
+            <el-button type="primary" :loading="true">加载中</el-button>
             electron-vue comes packed with detailed documentation that covers everything from
             internal configurations, using the project structure, building your application,
             and so much more.
@@ -24,6 +37,7 @@
           <div class="title alt">Other Documentation</div>
           <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
           <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
+          <button class="alt" @click="open('/testRoute')">测试路由 testRoute</button>
         </div>
       </div>
     </main>
