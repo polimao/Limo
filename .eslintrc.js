@@ -29,6 +29,7 @@ module.exports = {
 
     // 禁止不必要的分号
     "no-extra-semi": 1,
+    "semi": 1,
     "quotes": 1,
     "indent": 1,
     'keyword-spacing' : 1,
