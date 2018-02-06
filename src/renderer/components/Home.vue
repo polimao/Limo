@@ -8,6 +8,8 @@
         </span>
         <div>
       <router-link to='/file-compare'><el-button>File Compare</el-button></router-link>
+      <router-link to='/host-editer'><el-button>Host Editer</el-button></router-link>
+      <router-link to='/code-mirror'><el-button>Code Mirror</el-button></router-link>
 
   <!-- <el-button type="primary">主要按钮</el-button>
   <el-button type="success">成功按钮</el-button>
@@ -45,17 +47,17 @@
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation'
+import SystemInformation from './LandingPage/SystemInformation'
 
-  export default {
-    name: 'landing-page',
-    components: { SystemInformation },
-    methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
-      }
+export default {
+  name: 'landing-page',
+  components: { SystemInformation },
+  methods: {
+    open (link) {
+      this.$electron.shell.openExternal(link)
     }
   }
+}
 </script>
 
 <style>
