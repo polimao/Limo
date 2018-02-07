@@ -2,32 +2,13 @@
 <template>
 <main><router-link to='/'><el-button type='default'> 回到主页</el-button> </router-link>
 
-<textarea id='code' value="sadfa">123</textarea>
-<!-- <div id='holder'>
-  Drag your file here
-</div> -->
+  <codemirror v-model="host" :options="cmOptions" @ready="onCmReady"></codemirror>
 </main>
 
 </template>
 
-<style>
-  .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-  }
-  
-  .el-aside {
-    color: #333;
-  }
-</style>
 
 <script>
-  // import CodeMirror from 'codemirror/lib/codemirror'
-  // CodeMirror.fromTextArea(document.getElementById('code'), {
-  //   lineNumbers: true
-  // })
-
   // 拖拽打开文件
   document.addEventListener('drop', function (e) {
     e.preventDefault()
@@ -61,4 +42,36 @@
   //     console.log('写入成功！')
   //   }
   // })
+export default {
+  data () {
+    return {
+      host: 'const a = 10',
+      cmOptions: {
+        // codemirror options
+        tabSize: 4,
+        mode: 'text/javascript',
+        theme: 'base16-dark',
+        lineNumbers: true,
+        line: true,
+        // more codemirror options, 更多 codemirror 的高级配置...
+      }
+    }
+  },
+  methods: {
+    onCmReady(cm) {
+      var _path = '/etc/hosts'
+      // console.log(_path, path1);//测试路径对不对的
+      var fs = require('fs')
+      var _this = this
+      fs.readFile(_path, 'utf8', function (err, data) {
+        if (err) {
+          return console.log(err)
+        }
+        _this.host = data
+        console.log(data)
+      })
+      console.log('the editor is readied!', cm)
+    },
+  }
+}
 </script>

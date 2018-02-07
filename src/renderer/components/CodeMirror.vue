@@ -1,5 +1,7 @@
 <template>
 <main>
+<router-link to='/'><el-button type='default'> 回到主页</el-button> </router-link>
+
   <!-- bidirectional data binding（双向数据绑定） -->
   <codemirror v-model="code" :options="cmOptions"></codemirror>
 
