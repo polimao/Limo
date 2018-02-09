@@ -11,6 +11,11 @@ export default new Router({
       component: require('@/components/Home').default
     },
     {
+      path: '/help',
+      name: 'help',
+      component: require('@/components/Help').default
+    },
+    {
       path: '/file-compare',
       name: 'file-compare',
       component: require('@/components/FileCompare').default

@@ -3,36 +3,33 @@
     <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
     <main>
       <div class="left-side">
-        
+        <span class="title">
+          Welcome to your new project!
+        </span>
         <div>
+          <router-link to='/'><el-button>Go Home</el-button></router-link>
+        </div>
 
-<el-menu default-active="1-1" class="el-menu-vertical-demo" v-model="isCollapse" :collapse="isCollapse">
-  <el-submenu index="1">
-    <template slot="title">
-      <i class="el-icon-menu"></i>
-      <span slot="title">Menu</span>
-    </template>
-    <el-menu-item-group>
-      <span slot="title">单页面</span>
-      <router-link to='/file-compare'><el-menu-item index="1-1">File Compare</el-menu-item></router-link>
-      <router-link to='/host-editer'><el-menu-item index="1-2">Host Editer</el-menu-item></router-link>
-      <router-link to='/code-mirror'><el-menu-item index="1-2">Code Mirror</el-menu-item></router-link>
-      <router-link to='/help'><el-menu-item index="1-2">Help</el-menu-item></router-link>
-    </el-menu-item-group>
-
-  </el-submenu>
-
-</el-menu>
+        <system-information></system-information>
       </div>
-      </div>
+
       <div class="right-side">
         <div class="doc">
+          <div class="title">Getting Started</div>
           <p>
-            <system-information></system-information>
+            electron-vue comes packed with detailed documentation that covers everything from
+            internal configurations, using the project structure, building your application,
+            and so much more.
           </p>
+          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
+        </div>
+        <div class="doc">
+          <div class="title alt">Other Documentation</div>
+          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
+          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
+          <button class="alt" @click="open('/testRoute')">测试路由 testRoute</button>
         </div>
       </div>
-
     </main>
   </div>
 </template>
@@ -41,11 +38,6 @@
 import SystemInformation from "./LandingPage/SystemInformation";
 
 export default {
-  data() {
-    return {
-      isCollapse: false
-    };
-  },
   name: "landing-page",
   components: { SystemInformation },
   methods: {
@@ -67,9 +59,6 @@ export default {
 
 body {
   font-family: "Source Sans Pro", sans-serif;
-}
-a {
-  text-decoration: none;
 }
 
 #wrapper {
@@ -143,11 +132,5 @@ main > div {
 .doc button.alt {
   color: #42b983;
   background-color: transparent;
-}
-
-.right-side {
-  margin-left: 100px;
-  display: flex;
-  flex-direction: column;
 }
 </style>
