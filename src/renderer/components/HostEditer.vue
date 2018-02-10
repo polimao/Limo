@@ -3,6 +3,7 @@
     <el-container>
       <el-aside width="360px">
         <el-main>
+
           <el-row :gutter="10">
             <el-col>
               <div class='card bg-purple-light' @click="sceneCut('common')">
