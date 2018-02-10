@@ -1,50 +1,78 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="250px">
+      <el-aside width="360px">
         <el-main>
           <el-row :gutter="10">
             <el-col>
-              <div class='card'>
-                这是一个 Host 配置
+              <div class='card bg-purple-light'>
+                COMMON
               </div>
             </el-col>
           </el-row>
           <el-row :gutter="10">
             <el-col>
-              <div class='card'>
-                这是一个 Host 配置
-              </div>
-            </el-col>
-          </el-row>
-          <el-row :gutter="10">
-            <el-col>
-              <div class='card'>
-                这是一个 Host 配置
-              </div>
-            </el-col>
-          </el-row>
+              <div class='card bg-purple'>
+                DEV
+                <i class="el-icon-circle-check-outline"></i>
 
+              </div>
+            </el-col>
+          </el-row>
+          <el-row :gutter="10">
+            <el-col>
+              <div class='card'>
+                TEST
+              </div>
+            </el-col>
+          </el-row>
+          <el-row :gutter="10">
+            <el-col>
+              <div class='card'>
+                PROD
+              </div>
+            </el-col>
+          </el-row>
+          <el-row :gutter="10">
+            <el-col>
+              <div class='card'>
+                CUSTOM
+              </div>
+            </el-col>
+          </el-row>
         </el-main>
       </el-aside>
 
       <el-main>
         <el-row :gutter="10">
           <el-col>
-            <div class="grid-content bg-purple-light">
-              <p class="basename"> /etc/hosts</p>
-              <span class="push-button">i.</span>
+            <!-- <div class="grid-content bg-purple-light"> -->
+            <!-- <p class="basename"> /etc/hosts</p> -->
+            <!-- </div> -->
+          </el-col>
+        </el-row>
+        <codemirror v-model="host" :options="cmOptions" @ready="onCmReady" @input="save"></codemirror>
+
+      </el-main>
+
+    </el-container>
+    <el-container>
+
+      <el-main>
+        <el-row :gutter="10">
+          <el-col>
+            <div class="grid-content bg-purple">
+              <p class="basename">
+                VIEW
+                <i class="el-icon-view"></i>
+              </p>
             </div>
           </el-col>
         </el-row>
-        <codemirror v-model="host" :options="cmOptions" @ready="onCmReady"></codemirror>
-        <el-button @click="save">保存</el-button>
-        <router-link to='/'>
-          <el-button type='default'> 回到主页</el-button>
-        </router-link>
+        <codemirror v-model="host" :options="pwOptions"></codemirror>
+
       </el-main>
     </el-container>
-
   </main>
 
 </template>
@@ -78,8 +106,17 @@ export default {
         // codemirror options
         tabSize: 4,
         mode: "text/javascript",
-        theme: "base16-dark",
+        // theme: "base16-dark",
         lineNumbers: true,
+        line: true
+        // more codemirror options, 更多 codemirror 的高级配置...
+      },
+      pwOptions: {
+        // codemirror options
+        tabSize: 4,
+        mode: "text/javascript",
+        // theme: "base16-dark",
+        // lineNumbers: true,
         line: true
         // more codemirror options, 更多 codemirror 的高级配置...
       }
@@ -87,7 +124,7 @@ export default {
   },
   methods: {
     onCmReady(cm) {
-      var _path = "/etc/shells";
+      var _path = "/etc/hosts";
       // console.log(_path, path1);//测试路径对不对的
       var fs = require("fs");
       var _this = this;
@@ -105,10 +142,10 @@ export default {
       console.log(userInfo);
     },
     save() {
-      var _path = "/etc/shells";
+      var _path = "/etc/hosts";
       var fs = require("fs");
       // var fs = require("@mh-cbon/sudo-fs");
-      console.log(process);
+      // console.log(process);
       // fs.chmod(_path, "0777", function(err) {
       //   if (!err) console.log("权限操作成功！");
       //   console.log(err);
@@ -129,6 +166,14 @@ export default {
 
 
 <style>
+.card {
+  margin-bottom: 20px;
+  background: #99a9bf;
+  height: 50px;
+  border-radius: 4px;
+  line-height: 50px;
+  text-align: center;
+}
 .el-col {
   border-radius: 4px;
 }
@@ -149,10 +194,5 @@ export default {
   line-height: 35px;
   padding-left: 10px;
   margin: 0px;
-}
-.card {
-  margin-bottom: 20px;
-  background: #99a9bf;
-  height: 100px;
 }
 </style>
