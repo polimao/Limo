@@ -62,7 +62,7 @@
             </div>
           </el-col>
         </el-row>
-        <codemirror v-model="host_content" :options="pwOptions"></codemirror>
+        <codemirror v-model="target_content" :options="pwOptions"></codemirror>
 
       </el-main>
     </el-container>
@@ -94,9 +94,11 @@ var createFolder = function(to) {
 export default {
   data() {
     return {
-      host_content: "const a = 10",
+      scene_name: "common",
+      target_content: "",
+      common_content: "",
       editer_path: this.fullPath("common"),
-      editer_content: "const a = 10",
+      editer_content: "",
       target_path: "/etc/hosts",
       cmOptions: {
         // codemirror options
@@ -125,35 +127,50 @@ export default {
         if (err) {
           return console.log(err);
         }
-        _this.host_content = data;
+        _this.target_content = data;
       });
+      this.sceneCut("common");
       console.log("the editor is readied!", cm);
     },
     editerSave() {
-      console.log(this.editer_path, "写入成功！", this.editer_content);
+      console.log(this.editer_path, "开始成功！");
+
       fs.writeFile(this.editer_path, this.editer_content, function(err) {
         if (!err) console.log("写入成功！");
-        console.log(err);
       });
+      // linkageView
+      this.linkageView();
+    },
+    linkageView() {
+      if (this.scene_name == "common")
+        this.target_content = this.editer_content;
+      else
+        this.target_content = this.common_content + "\n" + this.editer_content;
+      // console.log(this.target_content);
+      fs.writeFile(this.target_path, this.target_content, function(err) {});
     },
     sceneCut(scene_name) {
+      this.scene_name = scene_name;
       var scene_path = this.fullPath(scene_name);
+      this.editer_path = scene_path;
+
       console.log(scene_path);
       var _this = this;
-      fs.exists(scene_path, function(exists) {
-        if (!exists) {
-          console.log(scene_path + "不存在");
-          createFolder(scene_path);
-          fs.createWriteStream(scene_path);
-        }
 
-        _this.editer_path = scene_path;
-        fs.readFile(scene_path, "utf8", function(err, data) {
-          if (err) {
-            return console.log(err);
-          }
-          _this.editer_content = data;
-        });
+      fs.readFile(scene_path, "utf8", function(err, data) {
+        if (err) {
+          fs.exists(scene_path, function(exists) {
+            if (!exists) {
+              console.log(scene_path + "不存在");
+              createFolder(scene_path);
+              fs.createWriteStream(scene_path);
+              _this.sceneCut(scene_name);
+            }
+          });
+          return console.log(err);
+        }
+        if (scene_name == "common") _this.common_content = data;
+        _this.editer_content = data;
       });
     },
     fullPath(scene_name) {
