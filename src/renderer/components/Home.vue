@@ -3,27 +3,38 @@
     <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
     <main>
       <div class="left-side">
-        
+
         <div>
 
-<el-menu default-active="1-1" class="el-menu-vertical-demo" v-model="isCollapse" :collapse="isCollapse">
-  <el-submenu index="1">
-    <template slot="title">
-      <i class="el-icon-menu"></i>
-      <span slot="title">Menu</span>
-    </template>
-    <el-menu-item-group>
-      <span slot="title">单页面</span>
-      <router-link to='/file-compare'><el-menu-item index="1-1">File Compare</el-menu-item></router-link>
-      <router-link to='/host-editer'><el-menu-item index="1-2">Host Editer</el-menu-item></router-link>
-      <router-link to='/code-mirror'><el-menu-item index="1-2">Code Mirror</el-menu-item></router-link>
-      <router-link to='/help'><el-menu-item index="1-2">Help</el-menu-item></router-link>
-    </el-menu-item-group>
+          <el-menu default-active="1-1" class="el-menu-vertical-demo" v-model="isCollapse" :collapse="isCollapse">
+            <el-submenu index="1">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span slot="title">Menu</span>
+              </template>
+              <el-menu-item-group>
+                <span slot="title">单页面</span>
+                <router-link to='/file-compare'>
+                  <el-menu-item index="1-1">File Compare</el-menu-item>
+                </router-link>
+                <router-link to='/host-editer'>
+                  <el-menu-item index="1-2">Host Editer</el-menu-item>
+                </router-link>
+                <router-link to='/code-mirror'>
+                  <el-menu-item index="1-2">Code Mirror</el-menu-item>
+                </router-link>
+                <router-link to='/help'>
+                  <el-menu-item index="1-2">Help</el-menu-item>
+                </router-link>
+                <router-link to='/test'>
+                  <el-menu-item index="1-2">test</el-menu-item>
+                </router-link>
+              </el-menu-item-group>
 
-  </el-submenu>
+            </el-submenu>
 
-</el-menu>
-      </div>
+          </el-menu>
+        </div>
       </div>
       <div class="right-side">
         <div class="doc">

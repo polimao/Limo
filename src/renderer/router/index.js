@@ -4,8 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
       component: require('@/components/Home').default
@@ -29,6 +28,11 @@ export default new Router({
       path: '/code-mirror',
       name: 'code-mirror',
       component: require('@/components/CodeMirror').default
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: require('@/components/Test').default
     },
     {
       path: '*',
