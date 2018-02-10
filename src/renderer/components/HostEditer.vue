@@ -130,14 +130,12 @@ export default {
       console.log("the editor is readied!", cm);
     },
     editerSave() {
-      // var scene_path = this.fullPath(this.editer_path);
       console.log(this.editer_path, "写入成功！", this.editer_content);
-      // fs.writeFile(this.editer_path, this.editer_content, function(err) {
-      //   if (!err) console.log("写入成功！");
-      //   console.log(err);
-      // });
+      fs.writeFile(this.editer_path, this.editer_content, function(err) {
+        if (!err) console.log("写入成功！");
+        console.log(err);
+      });
     },
-    targetSave() {},
     sceneCut(scene_name) {
       var scene_path = this.fullPath(scene_name);
       console.log(scene_path);
@@ -149,14 +147,13 @@ export default {
           fs.createWriteStream(scene_path);
         }
 
-        // _this.editer_path = scene_path;
+        _this.editer_path = scene_path;
         fs.readFile(scene_path, "utf8", function(err, data) {
           if (err) {
             return console.log(err);
           }
           _this.editer_content = data;
         });
-        // this.editer_content =
       });
     },
     fullPath(scene_name) {
