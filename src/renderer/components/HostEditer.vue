@@ -11,6 +11,7 @@
               </div>
             </el-col>
           </el-row>
+
           <el-row :gutter="10">
             <el-col>
               <div class='card bg-purple' @click="sceneCut('scene_1')">
