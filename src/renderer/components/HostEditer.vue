@@ -7,7 +7,7 @@
           <el-row :gutter="10">
             <el-col>
               <div class='card bg-purple-light' @click="sceneCut('common')">
-                COMMON
+                全局
               </div>
             </el-col>
           </el-row>
@@ -15,7 +15,7 @@
           <el-row :gutter="10">
             <el-col>
               <div class='card bg-purple' @click="sceneCut('scene_1')">
-                scene 1
+                情景一
                 <i class="el-icon-circle-check-outline"></i>
               </div>
             </el-col>
@@ -23,14 +23,14 @@
           <el-row :gutter="10">
             <el-col>
               <div class='card' @click="sceneCut('scene_2')">
-                scene 2
+                情景二
               </div>
             </el-col>
           </el-row>
           <el-row :gutter="10">
             <el-col>
               <div class='card' @click="sceneCut('scene_3')">
-                scene 3
+                情景三
               </div>
             </el-col>
           </el-row>
@@ -193,6 +193,13 @@ export default {
   border-radius: 4px;
   line-height: 50px;
   text-align: center;
+  box-shadow: 1px 1px 3px #99a9bf;
+}
+.card:hover {
+  cursor: pointer;
+}
+.active {
+  line-height: 53px;
 }
 .el-col {
   border-radius: 4px;
