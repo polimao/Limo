@@ -2,7 +2,7 @@ exports.compare = function (contents1, contents2, callback) {
     /**
      * Call the compare algorithm for both file, and send result to callback
      */
-    console.log(contents1, contents2)
+    // console.log(contents1, contents2)
     compareFiles(contents1, contents2, callback);
 };
 
@@ -48,7 +48,7 @@ function diffContents(contents1, contents2, appendFn) {
 
     processContents(subSet1, subSet2, appendFn);
 
-    if (contents1[0] || contents2[0])
+    if (contents1[0] !== undefined || contents2[0] !== undefined)
         diffContents(contents1, contents2, appendFn);
 }
 

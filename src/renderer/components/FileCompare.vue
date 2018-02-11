@@ -45,13 +45,13 @@
       <el-main>
         <!-- <codemirror v-model="foo" :options="fooOptions" @input="compare"></codemirror> -->
         <el-table :data="tableData">
-          <el-table-column prop="date" label="日期" width="140">
+          <el-table-column prop="date" label="行号" width="50">
           </el-table-column>
-          <el-table-column prop="name" label="姓名" width="120">
-          </el-table-column>
-          <el-table-column prop="address" label="地址">
+          <el-table-column prop="name" label="姓名">
           </el-table-column>
         </el-table>
+
+        <pre>{{ compareResult }}</pre>
       </el-main>
     </el-container>
   </main>
@@ -72,7 +72,7 @@
   margin: 0px;
 }
 .CodeMirror {
-  height: 47 0px;
+  height: 470px;
 }
 </style>
 
@@ -82,14 +82,13 @@ var diffCompare = require("./DiffCompare");
 export default {
   data() {
     const item = {
-      date: "2016-05-02",
-      name: "王小虎",
-      address: "上海市普陀区金沙江路 1518 弄"
+      name: "王小虎"
     };
     return {
       foo: "",
       bar: "",
-      tableData: Array(100).fill(item),
+      compareResult: "",
+      tableData: Array(3).fill(item),
       fooOptions: {
         // codemirror options
         tabSize: 4,
@@ -112,15 +111,13 @@ export default {
   },
   methods: {
     compare() {
-      console.log("foo:" + this.foo);
-      console.log("bar:" + this.bar);
-      // var filePath1 = "/Users/limao/code/test/01-22/f1.txt";
-      // var filePath2 = "/Users/limao/code/test/01-22/f2.txt";
+      console.log("comparing 'foo' and 'bar'");
 
       var f1 = this.foo.toString().split("\n");
       var f2 = this.bar.toString().split("\n");
+      var _this = this;
       diffCompare.compare(f1, f2, function(result) {
-        console.log(result);
+        _this.compareResult = result;
       });
     }
   }
