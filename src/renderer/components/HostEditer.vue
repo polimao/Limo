@@ -91,7 +91,6 @@
 
 
 <script>
-var fs = require("fs");
 import path from "path";
 import { remote } from "electron";
 import { ENGINE_METHOD_CIPHERS } from "constants";

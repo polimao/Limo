@@ -71,9 +71,14 @@
 * {
   margin: 0px;
 }
+.CodeMirror {
+  height: 47 0px;
+}
 </style>
 
 <script>
+var diffCompare = require("./DiffCompare");
+
 export default {
   data() {
     const item = {
@@ -109,6 +114,14 @@ export default {
     compare() {
       console.log("foo:" + this.foo);
       console.log("bar:" + this.bar);
+      // var filePath1 = "/Users/limao/code/test/01-22/f1.txt";
+      // var filePath2 = "/Users/limao/code/test/01-22/f2.txt";
+
+      var f1 = this.foo.toString().split("\n");
+      var f2 = this.bar.toString().split("\n");
+      diffCompare.compare(f1, f2, function(result) {
+        console.log(result);
+      });
     }
   }
 };

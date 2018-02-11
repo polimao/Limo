@@ -61,6 +61,7 @@
     "bootstrap": "^4.0.0",
     "codemirror": "^5.34.0",
     "element-ui": "^2.1.0",
+    "file-diff-parser": "0.0.1",
     "nedb": "^1.8.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
