@@ -1,39 +1,56 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="360px">
+      <el-aside width="360px" style="background-color: rgb(238, 241, 246)">
         <el-main>
 
-          <el-row :gutter="10">
-            <el-col>
-              <div class='card bg-purple-light' @click="sceneCut('common')">
-                全局
-              </div>
-            </el-col>
-          </el-row>
+          <el-radio-group v-model="active">
 
-          <el-row :gutter="10">
-            <el-col>
-              <div class='card bg-purple' @click="sceneCut('scene_1')">
-                情景一
-                <i class="el-icon-circle-check-outline"></i>
-              </div>
-            </el-col>
-          </el-row>
-          <el-row :gutter="10">
-            <el-col>
-              <div class='card' @click="sceneCut('scene_2')">
-                情景二
-              </div>
-            </el-col>
-          </el-row>
-          <el-row :gutter="10">
-            <el-col>
-              <div class='card' @click="sceneCut('scene_3')">
-                情景三
-              </div>
-            </el-col>
-          </el-row>
+            <el-row :gutter="10">
+              <el-col>
+                <div class='card bg-purple-light' @click="sceneCut('common')">
+                  <el-radio label="全局"></el-radio>
+
+                </div>
+              </el-col>
+            </el-row>
+
+            <el-row :gutter="10">
+              <el-col>
+                <div class='card bg-purple' @click="sceneCut('scene_1')">
+
+                  <el-radio label="情景一"></el-radio>
+                </div>
+              </el-col>
+            </el-row>
+            <el-row :gutter="10">
+              <el-col>
+                <div class='card' @click="sceneCut('scene_2')">
+                  <el-radio label="情景二"></el-radio>
+
+                </div>
+              </el-col>
+            </el-row>
+            <el-row :gutter="10">
+              <el-col>
+                <div class='card' @click="sceneCut('scene_3')">
+                  <el-radio label="情景三"></el-radio>
+
+                </div>
+              </el-col>
+            </el-row>
+            <el-row :gutter="10">
+              <el-col>
+                <div class='card'>
+                  <router-link to="/test">
+                    <el-radio label="home"></el-radio>
+
+                  </router-link>
+
+                </div>
+              </el-col>
+            </el-row>
+          </el-radio-group>
 
         </el-main>
       </el-aside>
@@ -96,6 +113,7 @@ var createFolder = function(to) {
 export default {
   data() {
     return {
+      active: true,
       scene_name: "common",
       target_content: "",
       common_content: "",
