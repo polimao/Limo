@@ -14,11 +14,28 @@ exports.compare = function (contents1, contents2, callback) {
  */
 function compareFiles(contents1, contents2, callback) {
 
-    var result = "",
-        resultIdx = 1;
+    var result = [],
+        fooIdx = 1,
+        barIdx = 1,
+        index;
 
     diffContents(contents1, contents2, function (data) {
-        result = result.concat((result ? '\n' : ''), resultIdx++, data);
+        data.index = index++;
+
+        switch (data.class) {
+            case 'foo':
+                data.fooIdx = fooIdx++;
+                break;
+            case 'bar':
+                data.barIdx = barIdx++;
+                break;
+            default:
+                data.fooIdx = fooIdx++;
+                data.barIdx = barIdx++;
+                break;
+        }
+
+        result.push(data);
     })
 
     callback(result);
@@ -76,16 +93,20 @@ function processContents(contents1, contents2, appendFn) {
     for (var i = 0; i < contents1.length || i < contents2.length; i++) {
         var element1 = contents1[i],
             element2 = contents2[i],
-            result;
+            result = {};
 
         if (element1 === undefined) {
-            result = "\t+\t" + element2;
+            result.value = "\t+\t" + element2;
+            result.class = "bar";
         } else if (element2 === undefined) {
-            result = "\t-\t" + element1;
+            result.value = "\t-\t" + element1;
+            result.class = "foo";
         } else if (element1 === element2) {
-            result = "\t\t" + element1;
+            result.value = "\t\t" + element1;
+            result.class = "peace";
         } else if (element1 !== element2) {
-            result = "\t*\t" + element1 + "|" + element2;
+            result.value = "\t*\t" + element1 + "|" + element2;
+            result.class = "war";
         }
 
         if (result) appendFn(result);

@@ -43,15 +43,18 @@
       </el-header>
 
       <el-main>
-        <!-- <codemirror v-model="foo" :options="fooOptions" @input="compare"></codemirror> -->
-        <el-table :data="tableData">
-          <el-table-column prop="date" label="行号" width="50">
-          </el-table-column>
-          <el-table-column prop="name" label="姓名">
-          </el-table-column>
-        </el-table>
+        <el-container>
+          <el-table :data="tableData">
+            <el-table-column prop="fooIdx" label="fooIdx">
+            </el-table-column>
+            <el-table-column prop="barIdx" label="barIdx">
+            </el-table-column>
+            <el-table-column prop="value" label="bar">
+            </el-table-column>
+          </el-table>
+        </el-container>
 
-        <pre>{{ compareResult }}</pre>
+        <!-- <pre>{{ compareResult }}</pre> -->
       </el-main>
     </el-container>
   </main>
@@ -118,6 +121,7 @@ export default {
       var _this = this;
       diffCompare.compare(f1, f2, function(result) {
         _this.compareResult = result;
+        _this.tableData = result;
       });
     }
   }
