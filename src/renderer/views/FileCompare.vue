@@ -77,7 +77,7 @@
 </style>
 
 <script>
-var diffCompare = require("./DiffCompare");
+var diffCompare = require("../components/DiffCompare");
 
 export default {
   data() {

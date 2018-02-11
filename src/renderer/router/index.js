@@ -7,32 +7,32 @@ export default new Router({
   routes: [{
       path: '/',
       name: 'home',
-      component: require('@/components/Home').default
+      component: require('@/views/Home').default
     },
     {
       path: '/help',
       name: 'help',
-      component: require('@/components/Help').default
+      component: require('@/views/Help').default
     },
     {
       path: '/file-compare',
       name: 'file-compare',
-      component: require('@/components/FileCompare').default
+      component: require('@/views/FileCompare').default
     },
     {
       path: '/host-editer',
       name: 'host-editer',
-      component: require('@/components/HostEditer').default
+      component: require('@/views/HostEditer').default
     },
     {
       path: '/code-mirror',
       name: 'code-mirror',
-      component: require('@/components/CodeMirror').default
+      component: require('@/views/CodeMirror').default
     },
     {
       path: '/test',
       name: 'test',
-      component: require('@/components/Test').default
+      component: require('@/views/Test').default
     },
     {
       path: '*',
