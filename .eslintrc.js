@@ -32,10 +32,10 @@ module.exports = {
     "semi": 1,
     "quotes": 1,
     "indent": 1,
-    'keyword-spacing' : 1,
-    'space-before-function-paren' : 1,
-    'space-infix-ops' : 1,
-    'no-multiple-empty-lines' : 1,
+    'keyword-spacing': 1,
+    'space-before-function-paren': 1,
+    'space-infix-ops': 1,
+    'no-multiple-empty-lines': 1,
 
   }
 }

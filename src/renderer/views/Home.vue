@@ -23,6 +23,9 @@
                 <router-link to='/code-mirror'>
                   <el-menu-item index="1-2">Code Mirror</el-menu-item>
                 </router-link>
+                <router-link to='/code-run'>
+                  <el-menu-item index="1-2">Code Run</el-menu-item>
+                </router-link>
                 <router-link to='/help'>
                   <el-menu-item index="1-2">Help</el-menu-item>
                 </router-link>
@@ -49,26 +52,26 @@
 </template>
 
 <script>
-import SystemInformation from "./LandingPage/SystemInformation";
+import SystemInformation from './LandingPage/SystemInformation'
 
 export default {
   data() {
     return {
       isCollapse: false
-    };
+    }
   },
-  name: "landing-page",
+  name: 'landing-page',
   components: { SystemInformation },
   methods: {
     open(link) {
-      this.$electron.shell.openExternal(link);
+      this.$electron.shell.openExternal(link)
     }
   }
-};
+}
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 * {
   box-sizing: border-box;
@@ -77,7 +80,7 @@ export default {
 }
 
 body {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 a {
   text-decoration: none;
