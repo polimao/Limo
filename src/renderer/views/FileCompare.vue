@@ -1,6 +1,8 @@
 
 <template>
   <main>
+    <router-link to="/test">to test</router-link>
+
     <el-container style="height: 500px;padding:30px;">
 
       <el-container style="background-color: rgb(238, 241, 246)">
@@ -8,13 +10,7 @@
           <span>foo</span>
         </el-header>
 
-        <!-- <el-main> -->
-        <!-- <router-link to='/'>
-          <el-button type='default'> 回到主页</el-button>
-        </router-link> -->
         <codemirror v-model="foo" :options="fooOptions" @input="compare"></codemirror>
-
-        <!-- </el-main> -->
 
       </el-container>
 
@@ -23,36 +19,22 @@
           <span>bar</span>
         </el-header>
 
-        <!-- <el-main> -->
         <codemirror v-model="bar" :options="barOptions" @input="compare"></codemirror>
-
-        <!-- </el-main> -->
       </el-container>
     </el-container>
     <el-container>
-      <el-header class="tool-bar">
+      <el-header class="tool-bar angled-135">
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"> 查看方式</i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>左右并排</el-dropdown-item>
             <el-dropdown-item>上下对比</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown>angled-135
       </el-header>
 
       <el-main>
-        <!-- <el-container> -->
-        <!-- <el-table :data="diffData" :height="450" :size="'mini'" :cell-class-name="tableCellStyle" :highlight-current-row="false">
-            <el-table-column prop="fooIdx" label="fooIdx">
-            </el-table-column>
-            <el-table-column prop="barIdx" label="barIdx">
-            </el-table-column>
-            <el-table-column prop="value" label="bar">
-            </el-table-column>
-          </el-table> -->
-        <!-- <div class='diff-header'>
-            foo vs bar
-          </div> -->
+
         <el-header style="font-size: 12px;width:100%;">
         </el-header>
         <!-- <el-main> -->
@@ -64,11 +46,7 @@
             <!-- <td>{{v.index}}</td> -->
           </tr>
         </table>
-        <!-- </el-main> -->
 
-        <!-- </el-container> -->
-
-        <!-- <pre>{{ compareResult }}</pre> -->
       </el-main>
     </el-container>
   </main>
@@ -129,8 +107,34 @@
 .tool-bar {
   text-align: right;
   font-size: 12px;
-  background: none;
-  border-bottom: 1px solid #ddd;
+  background-size: 5px 5px;
+  /* box-shadow: 1px 1px 8px gray; */
+
+  /* border-bottom: 1px solid #ddd; */
+}
+/* .stripes {
+  height: 25px;
+  width: 37px;
+  float: left;
+  margin: 10px;
+  background-size: 5px 5px; 
+  box-shadow: 1px 1px 8px gray;
+} */
+
+.angled-135 {
+  background-color: #ddd;
+  background-image: -webkit-gradient(
+    linear,
+    0 0,
+    100% 100%,
+    color-stop(0.25, rgba(255, 255, 255, 1)),
+    color-stop(0.25, transparent),
+    color-stop(0.5, transparent),
+    color-stop(0.5, rgba(255, 255, 255, 1)),
+    color-stop(0.75, rgba(255, 255, 255, 1)),
+    color-stop(0.75, transparent),
+    to(transparent)
+  );
 }
 </style>
 
