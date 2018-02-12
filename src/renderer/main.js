@@ -12,14 +12,14 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 主题载入
 import 'codemirror/lib/codemirror.css'
 
-import 'codemirror/theme/base16-dark.css'
-import 'codemirror/theme/solarized.css'
+// import 'codemirror/theme/base16-dark.css'
+// import 'codemirror/theme/solarized.css'
 
-// 载入 codemirror 组件
-import CodeMirror from 'codemirror/lib/codemirror'
-import 'codemirror/mode/php/php'
+// // 载入 codemirror 组件
+// import CodeMirror from 'codemirror/lib/codemirror'
+// import 'codemirror/mode/php/php'
 
-window.CodeMirror = CodeMirror
+// window.CodeMirror = CodeMirror
 
 import VueCodemirror from 'vue-codemirror'
 
@@ -34,11 +34,14 @@ Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.prototype.$db = db
-db.insert([{
-  a: 5
-}, {
-  a: 42
-}])
+db.insert([
+  {
+    a: 5
+  },
+  {
+    a: 42
+  }
+])
 /* eslint-disable no-new */
 new Vue({
   components: {

@@ -1,44 +1,53 @@
+
 <template>
-    <main>
-        <router-link to="/">go to home </router-link>
-        <span>mode: {{ cmOption.mode }}</span>
-        <span>&nbsp;&nbsp;&nbsp;</span>
-        <span>theme: {{ cmOption.theme }}</span>
-        <div class="codemirror">
-            <!-- codemirror -->
-            <codemirror v-model="code" :options="cmOption"></codemirror>
-        </div>
-    </main>
+  <main>
+<article>
+<h2>Code Run</h2>
+<form><textarea  ref="code" name="code">
+<?php
+$a = array('a' => 1, 'b' => 2, 3 => 'c');
+
+echo "$a[a] ${a[3] /* } comment */} {$a[b]} \$a[a]";
+
+function hello($who) {
+	return "Hello $who!";
+}
+?>
+<p>The program says <?= hello("World") ?>.</p>
+<script>
+	alert("And here is some JS code"); // also colored
+</script>
+</textarea></form>
+
+  </article></main>
 </template>
 
-<script>
-// CodeMirror.defineMode("mymode", () => {
-//   return {
-//     token(stream, state) {
-//       if (stream.match("const")) {
-//         return "keyword";
-//       } else if (stream.match("111")) {
-//         return "number";
-//       } else {
-//         stream.next();
-//         return null;
-//       }
-//     }
-//   };
-// });
+<style>
+.CodeMirror {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+</style>
+
+
+    <script>
+import CodeMirror from 'codemirror/lib/codemirror'
+import 'codemirror/mode/php/php'
+
 export default {
   data() {
-    return {
-      code: `<?php \necho 12;\narray_merge(13,12)`,
-      cmOption: {
-        tabSize: 4,
-        styleActiveLine: true,
-        lineNumbers: true,
-        line: true,
-        mode: 'application/x-httpd-php',
-        theme: 'solarized light'
-      }
-    }
+    return { limao: 1 }
+  },
+  methods: {},
+  mounted() {
+    // this.$refs.code.value = 12312
+    var editor = CodeMirror.fromTextArea(this.$refs.code, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: 'application/x-httpd-php',
+      indentUnit: 4,
+      indentWithTabs: true
+    })
   }
 }
 </script>

@@ -1,40 +1,53 @@
+
 <template>
   <main>
-    <codemirror v-model="code" :options="cmOption"></codemirror>
-  </main>
+<article>
+<h2>Code Run</h2>
+<form><textarea  ref="code" name="code">
+<?php
+$a = array('a' => 1, 'b' => 2, 3 => 'c');
+
+echo "$a[a] ${a[3] /* } comment */} {$a[b]} \$a[a]";
+
+function hello($who) {
+	return "Hello $who!";
+}
+?>
+<p>The program says <?= hello("World") ?>.</p>
+<script>
+	alert("And here is some JS code"); // also colored
+</script>
+</textarea></form>
+
+  </article></main>
 </template>
 
-<script>
-console.log('234567898765432345678876543456789', window.CodeMirror)
-import Vue from 'vue'
+<style>
+.CodeMirror {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+</style>
 
-// 载入 codemirror 组件
+
+    <script>
 import CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/mode/php/php'
 
-window.CodeMirror = CodeMirror
-
-import VueCodemirror from 'vue-codemirror'
-
-Vue.use(VueCodemirror)
 export default {
   data() {
-    return {
-      code: `<?php \necho 12;\narray_merge(13,12); ?>`,
-      cmOption: {
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: 'application/x-httpd-php',
-        indentUnit: 4,
-        indentWithTabs: true
-      }
-    }
+    return { limao: 1 }
   },
-  methods: {
-    mounted() {
-      console.log('this is current codemirror object', this.codemirror)
-      // you can use this.codemirror to do something...
-    }
+  methods: {},
+  mounted() {
+    // this.$refs.code.value = 12312
+    var editor = CodeMirror.fromTextArea(this.$refs.code, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: 'application/x-httpd-php',
+      indentUnit: 4,
+      indentWithTabs: true
+    })
   }
 }
 </script>
