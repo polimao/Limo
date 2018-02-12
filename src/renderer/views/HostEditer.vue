@@ -91,38 +91,38 @@
 
 
 <script>
-import path from "path";
-import { remote } from "electron";
-import { ENGINE_METHOD_CIPHERS } from "constants";
+import path from 'path'
+import { remote } from 'electron'
+import { ENGINE_METHOD_CIPHERS } from 'constants'
 
-var createFolder = function(to) {
-  //文件写入
-  var sep = path.sep;
-  var folders = path.dirname(to).split(sep);
-  var p = "";
+var createFolder = function (to) {
+  // 文件写入
+  var sep = path.sep
+  var folders = path.dirname(to).split(sep)
+  var p = ''
   while (folders.length) {
-    p += folders.shift() + sep;
+    p += folders.shift() + sep
     if (!fs.existsSync(p)) {
-      fs.mkdirSync(p);
-      console.log(p);
+      fs.mkdirSync(p)
+      console.log(p)
     }
   }
-};
+}
 
 export default {
-  data() {
+  data () {
     return {
       active: true,
-      scene_name: "common",
-      target_content: "",
-      common_content: "",
-      editer_path: this.fullPath("common"),
-      editer_content: "",
-      target_path: "/etc/hosts",
+      scene_name: 'common',
+      target_content: '',
+      common_content: '',
+      editer_path: this.fullPath('common'),
+      editer_content: '',
+      target_path: '/etc/hosts',
       cmOptions: {
         // codemirror options
         tabSize: 4,
-        mode: "text/javascript",
+        mode: 'text/javascript',
         // theme: "base16-dark",
         lineNumbers: true,
         line: true
@@ -131,73 +131,70 @@ export default {
       pwOptions: {
         // codemirror options
         tabSize: 4,
-        mode: "text/javascript",
+        mode: 'text/javascript',
         // theme: "base16-dark",
         // lineNumbers: true,
         line: true
         // more codemirror options, 更多 codemirror 的高级配置...
       }
-    };
+    }
   },
   methods: {
-    onCmReady(cm) {
-      var _this = this;
-      fs.readFile(this.target_path, "utf8", function(err, data) {
+    onCmReady (cm) {
+      var _this = this
+      fs.readFile(this.target_path, 'utf8', function (err, data) {
         if (err) {
-          return console.log(err);
+          return console.log(err)
         }
-        _this.target_content = data;
-      });
-      this.sceneCut("common");
-      console.log("the editor is readied!", cm);
+        _this.target_content = data
+      })
+      this.sceneCut('common')
+      console.log('the editor is readied!', cm)
     },
-    editerSave() {
-      console.log(this.editer_path, "开始成功！");
+    editerSave () {
+      console.log(this.editer_path, '开始成功！')
 
-      fs.writeFile(this.editer_path, this.editer_content, function(err) {
-        if (!err) console.log("写入成功！");
-      });
+      fs.writeFile(this.editer_path, this.editer_content, function (err) {
+        if (!err) console.log('写入成功！')
+      })
       // linkageView
-      this.linkageView();
+      this.linkageView()
     },
-    linkageView() {
-      if (this.scene_name == "common")
-        this.target_content = this.editer_content;
-      else
-        this.target_content = this.common_content + "\n" + this.editer_content;
+    linkageView () {
+      if (this.scene_name == 'common') { this.target_content = this.editer_content } else { this.target_content = this.common_content + '\n' + this.editer_content }
       // console.log(this.target_content);
-      fs.writeFile(this.target_path, this.target_content, function(err) {});
+      fs.writeFile(this.target_path, this.target_content, function (err) {})
     },
-    sceneCut(scene_name) {
-      this.scene_name = scene_name;
-      var scene_path = this.fullPath(scene_name);
-      this.editer_path = scene_path;
+    sceneCut (scene_name) {
+      this.scene_name = scene_name
+      var scene_path = this.fullPath(scene_name)
+      this.editer_path = scene_path
 
-      console.log(scene_path);
-      var _this = this;
+      console.log(scene_path)
+      var _this = this
 
-      fs.readFile(scene_path, "utf8", function(err, data) {
+      fs.readFile(scene_path, 'utf8', function (err, data) {
         if (err) {
-          fs.exists(scene_path, function(exists) {
+          fs.exists(scene_path, function (exists) {
             if (!exists) {
-              console.log(scene_path + "不存在");
-              createFolder(scene_path);
-              fs.createWriteStream(scene_path);
-              _this.sceneCut(scene_name);
+              console.log(scene_path + '不存在')
+              createFolder(scene_path)
+              fs.createWriteStream(scene_path)
+              _this.sceneCut(scene_name)
             }
-          });
-          return console.log(err);
+          })
+          return console.log(err)
         }
-        if (scene_name == "common") _this.common_content = data;
-        _this.editer_content = data;
-      });
+        if (scene_name == 'common') _this.common_content = data
+        _this.editer_content = data
+      })
     },
-    fullPath(scene_name) {
-      var scene_path = "/hosts/" + scene_name;
-      return path.join(remote.app.getPath("userData"), scene_path);
+    fullPath (scene_name) {
+      var scene_path = '/hosts/' + scene_name
+      return path.join(remote.app.getPath('userData'), scene_path)
     }
   }
-};
+}
 </script>
 
 

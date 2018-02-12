@@ -139,22 +139,22 @@
 </style>
 
 <script>
-var diffCompare = require("../components/DiffCompare");
+var diffCompare = require('../components/DiffCompare')
 
 export default {
-  data() {
+  data () {
     const item = {
-      name: "王小虎"
-    };
+      name: '王小虎'
+    }
     return {
-      foo: "",
-      bar: "",
-      compareResult: "",
+      foo: '',
+      bar: '',
+      compareResult: '',
       diffData: Array(3).fill(item),
       fooOptions: {
         // codemirror options
         tabSize: 4,
-        mode: "text/javascript",
+        mode: 'text/javascript',
         // theme: "base16-dark",
         lineNumbers: true,
         line: true
@@ -163,30 +163,30 @@ export default {
       barOptions: {
         // codemirror options
         tabSize: 4,
-        mode: "text/javascript",
+        mode: 'text/javascript',
         // theme: "base16-dark",
         lineNumbers: true,
         line: true
         // more codemirror options, 更多 codemirror 的高级配置...
       }
-    };
+    }
   },
   methods: {
-    compare() {
-      console.log("comparing 'foo' and 'bar'");
+    compare () {
+      console.log("comparing 'foo' and 'bar'")
 
-      var f1 = this.foo.toString().split("\n");
-      var f2 = this.bar.toString().split("\n");
-      var _this = this;
-      diffCompare.compare(f1, f2, function(result) {
-        _this.compareResult = result;
-        _this.diffData = result;
-      });
+      var f1 = this.foo.toString().split('\n')
+      var f2 = this.bar.toString().split('\n')
+      var _this = this
+      diffCompare.compare(f1, f2, function (result) {
+        _this.compareResult = result
+        _this.diffData = result
+      })
     },
-    tableCellStyle(row, index) {
-      console.log(row.row.class);
-      return row.row.class + "_style";
+    tableCellStyle (row, index) {
+      console.log(row.row.class)
+      return row.row.class + '_style'
     }
   }
-};
+}
 </script>

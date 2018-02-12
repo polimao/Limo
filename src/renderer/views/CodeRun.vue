@@ -27,7 +27,7 @@
 //   };
 // });
 export default {
-  data() {
+  data () {
     return {
       code: `<?php \necho 12;\narray_merge(13,12)`,
       cmOption: {
@@ -35,10 +35,10 @@ export default {
         styleActiveLine: true,
         lineNumbers: true,
         line: true,
-        mode: "application/x-httpd-php",
-        theme: "solarized light"
+        mode: 'application/x-httpd-php',
+        theme: 'solarized light'
       }
-    };
+    }
   }
-};
+}
 </script>

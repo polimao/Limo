@@ -52,22 +52,22 @@
 </template>
 
 <script>
-import SystemInformation from "./LandingPage/SystemInformation";
+import SystemInformation from './LandingPage/SystemInformation'
 
 export default {
-  data() {
+  data () {
     return {
       isCollapse: false
-    };
+    }
   },
-  name: "landing-page",
+  name: 'landing-page',
   components: { SystemInformation },
   methods: {
-    open(link) {
-      this.$electron.shell.openExternal(link);
+    open (link) {
+      this.$electron.shell.openExternal(link)
     }
   }
-};
+}
 </script>
 
 <style>
