@@ -17,7 +17,7 @@ function compareFiles(contents1, contents2, callback) {
     var result = [],
         fooIdx = 1,
         barIdx = 1,
-        index;
+        index = 1;
 
     diffContents(contents1, contents2, function (data) {
         data.index = index++;
