@@ -20,7 +20,7 @@
 // import 'codemirror/theme/base16-dark.css'
 
 export default {
-  data () {
+  data() {
     return {
       code: 'const a = 10',
       cmOptions: {
@@ -35,23 +35,23 @@ export default {
     }
   },
   methods: {
-    onCmReady (cm) {
+    onCmReady(cm) {
       console.log('the editor is readied!', cm)
     },
-    onCmFocus (cm) {
+    onCmFocus(cm) {
       console.log('the editor is focus!', cm)
     },
-    onCmCodeChange (newCode) {
+    onCmCodeChange(newCode) {
       console.log('this is new code', newCode)
       this.code = newCode
     }
   },
   computed: {
-    codemirror () {
+    codemirror() {
       return this.$refs.myCm.codemirror
     }
   },
-  mounted () {
+  mounted() {
     console.log('this is current codemirror object', this.codemirror)
     // you can use this.codemirror to do something...
   }

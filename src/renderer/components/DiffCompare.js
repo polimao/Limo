@@ -1,7 +1,7 @@
 exports.compare = function (contents1, contents2, callback) {
   /**
-     * Call the compare algorithm for both file, and send result to callback
-     */
+   * Call the compare algorithm for both file, and send result to callback
+   */
   // console.log(contents1, contents2)
   compareFiles(contents1, contents2, callback)
 }
@@ -50,9 +50,9 @@ function diffContents (contents1, contents2, appendFn) {
 
   contents1.some(function (element1, index1) {
     var hasSame = contents2.some(function (element2, index2) {
-      return (element1 === element2 ? idx2 = index2 : false)
+      return element1 === element2 ? (idx2 = index2) : false
     })
-    return (hasSame ? idx1 = index1 : false)
+    return hasSame ? (idx1 = index1) : false
   })
 
   var subSet1 = getContentsToCompare(contents1, idx1),
@@ -60,7 +60,9 @@ function diffContents (contents1, contents2, appendFn) {
 
   processContents(subSet1, subSet2, appendFn)
 
-  if (contents1[0] !== undefined || contents2[0] !== undefined) { diffContents(contents1, contents2, appendFn) }
+  if (contents1[0] !== undefined || contents2[0] !== undefined) {
+    diffContents(contents1, contents2, appendFn)
+  }
 }
 
 /**
@@ -71,7 +73,7 @@ function diffContents (contents1, contents2, appendFn) {
  * @returns {Array.<T>}
  */
 function getContentsToCompare (contents, idx) {
-  var qty = (idx || 1)
+  var qty = idx || 1
 
   return contents.splice(0, qty !== -1 ? qty : contents.length)
 }

@@ -55,7 +55,7 @@
 import SystemInformation from './LandingPage/SystemInformation'
 
 export default {
-  data () {
+  data() {
     return {
       isCollapse: false
     }
@@ -63,7 +63,7 @@ export default {
   name: 'landing-page',
   components: { SystemInformation },
   methods: {
-    open (link) {
+    open(link) {
       this.$electron.shell.openExternal(link)
     }
   }
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 * {
   box-sizing: border-box;
@@ -80,7 +80,7 @@ export default {
 }
 
 body {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 a {
   text-decoration: none;

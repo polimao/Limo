@@ -18,7 +18,7 @@ import VueCodemirror from 'vue-codemirror'
 
 Vue.use(VueCodemirror)
 export default {
-  data () {
+  data() {
     return {
       code: `<?php \necho 12;\narray_merge(13,12); ?>`,
       cmOption: {
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    mounted () {
+    mounted() {
       console.log('this is current codemirror object', this.codemirror)
       // you can use this.codemirror to do something...
     }

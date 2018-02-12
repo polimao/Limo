@@ -57,8 +57,8 @@
   width: 100%;
   border-spacing: 0px;
   clear: both;
-  font-family: "Segoe WPC", "Segoe UI", "HelveticaNeue-Light", "Ubuntu",
-    "Droid Sans", "sans-serif";
+  font-family: 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu',
+    'Droid Sans', 'sans-serif';
   font-size: 14px;
 }
 #diff-table .diff-index {
@@ -142,7 +142,7 @@
 var diffCompare = require('../components/DiffCompare')
 
 export default {
-  data () {
+  data() {
     const item = {
       name: '王小虎'
     }
@@ -172,18 +172,18 @@ export default {
     }
   },
   methods: {
-    compare () {
+    compare() {
       console.log("comparing 'foo' and 'bar'")
 
       var f1 = this.foo.toString().split('\n')
       var f2 = this.bar.toString().split('\n')
       var _this = this
-      diffCompare.compare(f1, f2, function (result) {
+      diffCompare.compare(f1, f2, function(result) {
         _this.compareResult = result
         _this.diffData = result
       })
     },
-    tableCellStyle (row, index) {
+    tableCellStyle(row, index) {
       console.log(row.row.class)
       return row.row.class + '_style'
     }

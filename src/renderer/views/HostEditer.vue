@@ -95,7 +95,7 @@ import path from 'path'
 import { remote } from 'electron'
 import { ENGINE_METHOD_CIPHERS } from 'constants'
 
-var createFolder = function (to) {
+var createFolder = function(to) {
   // 文件写入
   var sep = path.sep
   var folders = path.dirname(to).split(sep)
@@ -110,7 +110,7 @@ var createFolder = function (to) {
 }
 
 export default {
-  data () {
+  data() {
     return {
       active: true,
       scene_name: 'common',
@@ -140,9 +140,9 @@ export default {
     }
   },
   methods: {
-    onCmReady (cm) {
+    onCmReady(cm) {
       var _this = this
-      fs.readFile(this.target_path, 'utf8', function (err, data) {
+      fs.readFile(this.target_path, 'utf8', function(err, data) {
         if (err) {
           return console.log(err)
         }
@@ -151,21 +151,25 @@ export default {
       this.sceneCut('common')
       console.log('the editor is readied!', cm)
     },
-    editerSave () {
+    editerSave() {
       console.log(this.editer_path, '开始成功！')
 
-      fs.writeFile(this.editer_path, this.editer_content, function (err) {
+      fs.writeFile(this.editer_path, this.editer_content, function(err) {
         if (!err) console.log('写入成功！')
       })
       // linkageView
       this.linkageView()
     },
-    linkageView () {
-      if (this.scene_name == 'common') { this.target_content = this.editer_content } else { this.target_content = this.common_content + '\n' + this.editer_content }
+    linkageView() {
+      if (this.scene_name == 'common') {
+        this.target_content = this.editer_content
+      } else {
+        this.target_content = this.common_content + '\n' + this.editer_content
+      }
       // console.log(this.target_content);
-      fs.writeFile(this.target_path, this.target_content, function (err) {})
+      fs.writeFile(this.target_path, this.target_content, function(err) {})
     },
-    sceneCut (scene_name) {
+    sceneCut(scene_name) {
       this.scene_name = scene_name
       var scene_path = this.fullPath(scene_name)
       this.editer_path = scene_path
@@ -173,9 +177,9 @@ export default {
       console.log(scene_path)
       var _this = this
 
-      fs.readFile(scene_path, 'utf8', function (err, data) {
+      fs.readFile(scene_path, 'utf8', function(err, data) {
         if (err) {
-          fs.exists(scene_path, function (exists) {
+          fs.exists(scene_path, function(exists) {
             if (!exists) {
               console.log(scene_path + '不存在')
               createFolder(scene_path)
@@ -189,7 +193,7 @@ export default {
         _this.editer_content = data
       })
     },
-    fullPath (scene_name) {
+    fullPath(scene_name) {
       var scene_path = '/hosts/' + scene_name
       return path.join(remote.app.getPath('userData'), scene_path)
     }

@@ -27,7 +27,7 @@
 //   };
 // });
 export default {
-  data () {
+  data() {
     return {
       code: `<?php \necho 12;\narray_merge(13,12)`,
       cmOption: {
