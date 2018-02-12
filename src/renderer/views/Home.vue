@@ -23,6 +23,9 @@
                 <router-link to='/code-mirror'>
                   <el-menu-item index="1-2">Code Mirror</el-menu-item>
                 </router-link>
+                <router-link to='/code-run'>
+                  <el-menu-item index="1-2">Code Run</el-menu-item>
+                </router-link>
                 <router-link to='/help'>
                   <el-menu-item index="1-2">Help</el-menu-item>
                 </router-link>

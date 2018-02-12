@@ -1,61 +1,40 @@
 <template>
   <main>
-    <router-link to="/">to home</router-link>
-
-    HTML代码：
-    <!-- <div class="horizontal stripes"></div>
-    <div class="vertical stripes"></div>
-    <div class="picnic stripes"></div>
-    <div class="angled stripes"></div> -->
-    <div class="angled-135 stripes"></div>
-    <!-- <div class="checkered stripes"></div> -->
+    <codemirror v-model="code" :options="cmOption"></codemirror>
   </main>
 </template>
 
 <script>
-console.log(21);
-// 拖拽打开文件
-document.addEventListener("drop", function(e) {
-  e.preventDefault();
-  e.stopPropagation();
+console.log("234567898765432345678876543456789", window.CodeMirror);
+import Vue from "vue";
 
-  for (let f of e.dataTransfer.files) {
-    console.log("File(s) you dragged here: ", f.path);
+// 载入 codemirror 组件
+import CodeMirror from "codemirror/lib/codemirror";
+import "codemirror/mode/php/php";
+
+window.CodeMirror = CodeMirror;
+
+import VueCodemirror from "vue-codemirror";
+
+Vue.use(VueCodemirror);
+export default {
+  data() {
+    return {
+      code: `<?php \necho 12;\narray_merge(13,12); ?>`,
+      cmOption: {
+        lineNumbers: true,
+        matchBrackets: true,
+        mode: "application/x-httpd-php",
+        indentUnit: 4,
+        indentWithTabs: true
+      }
+    };
+  },
+  methods: {
+    mounted() {
+      console.log("this is current codemirror object", this.codemirror);
+      // you can use this.codemirror to do something...
+    }
   }
-});
-document.addEventListener("dragover", function(e) {
-  e.preventDefault();
-  e.stopPropagation();
-});
-
-const os = require("os");
-const userInfo = os.userInfo();
-console.log(userInfo);
+};
 </script>
-
-<style>
-.stripes {
-  height: 25px;
-  width: 37px;
-  float: left;
-  margin: 10px;
-  background-size: 5px 5px; /* 控制条纹的大小 */
-  box-shadow: 1px 1px 8px gray;
-}
-
-.angled-135 {
-  background-color: #ddd;
-  background-image: -webkit-gradient(
-    linear,
-    0 0,
-    100% 100%,
-    color-stop(0.25, rgba(255, 255, 255, 1)),
-    color-stop(0.25, transparent),
-    color-stop(0.5, transparent),
-    color-stop(0.5, rgba(255, 255, 255, 1)),
-    color-stop(0.75, rgba(255, 255, 255, 1)),
-    color-stop(0.75, transparent),
-    to(transparent)
-  );
-}
-</style>

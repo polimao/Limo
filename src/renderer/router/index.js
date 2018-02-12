@@ -25,6 +25,11 @@ export default new Router({
       component: require('@/views/HostEditer').default
     },
     {
+      path: '/code-run',
+      name: 'code-run',
+      component: require('@/views/CodeRun').default
+    },
+    {
       path: '/code-mirror',
       name: 'code-mirror',
       component: require('@/views/CodeMirror').default
