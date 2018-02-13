@@ -1,4 +1,4 @@
-exports.compare = function (contents1, contents2, callback) {
+exports.compare = function(contents1, contents2, callback) {
   /**
    * Call the compare algorithm for both file, and send result to callback
    */
@@ -9,13 +9,13 @@ exports.compare = function (contents1, contents2, callback) {
 /**
  * Create a compare result for the given files
  */
-function compareFiles (contents1, contents2, callback) {
+function compareFiles(contents1, contents2, callback) {
   var result = [],
     fooIdx = 1,
     barIdx = 1,
     index = 1
 
-  diffContents(contents1, contents2, function (data) {
+  diffContents(contents1, contents2, function(data) {
     data.index = index++
 
     switch (data.class) {
@@ -44,12 +44,12 @@ function compareFiles (contents1, contents2, callback) {
  * @param contents2
  * @param appendFn
  */
-function diffContents (contents1, contents2, appendFn) {
+function diffContents(contents1, contents2, appendFn) {
   var idx1 = -1,
     idx2 = -1
 
-  contents1.some(function (element1, index1) {
-    var hasSame = contents2.some(function (element2, index2) {
+  contents1.some(function(element1, index1) {
+    var hasSame = contents2.some(function(element2, index2) {
       return element1 === element2 ? (idx2 = index2) : false
     })
     return hasSame ? (idx1 = index1) : false
@@ -72,7 +72,7 @@ function diffContents (contents1, contents2, appendFn) {
  * @param idx
  * @returns {Array.<T>}
  */
-function getContentsToCompare (contents, idx) {
+function getContentsToCompare(contents, idx) {
   var qty = idx || 1
 
   return contents.splice(0, qty !== -1 ? qty : contents.length)
@@ -85,7 +85,7 @@ function getContentsToCompare (contents, idx) {
  * @param contents2
  * @param appendFn
  */
-function processContents (contents1, contents2, appendFn) {
+function processContents(contents1, contents2, appendFn) {
   for (var i = 0; i < contents1.length || i < contents2.length; i++) {
     var element1 = contents1[i],
       element2 = contents2[i],

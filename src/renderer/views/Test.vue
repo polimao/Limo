@@ -33,31 +33,31 @@ function hello($who) {
 </template>
 
 <style>
-.CodeMirror {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-}
+  .CodeMirror {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
 </style>
 
 
     <script>
-import CodeMirror from 'codemirror/lib/codemirror'
-import 'codemirror/mode/php/php'
+  import CodeMirror from 'codemirror/lib/codemirror'
+  import 'codemirror/mode/php/php'
 
-export default {
-  data() {
-    return { limao: 1 }
-  },
-  methods: {},
-  mounted() {
-    // this.$refs.code.value = 12312
-    CodeMirror.fromTextArea(this.$refs.code, {
-      lineNumbers: true,
-      matchBrackets: true,
-      mode: 'application/x-httpd-php',
-      indentUnit: 4,
-      indentWithTabs: true
-    })
+  export default {
+    data() {
+      return { limao: 1 }
+    },
+    methods: {},
+    mounted() {
+      // this.$refs.code.value = 12312
+      CodeMirror.fromTextArea(this.$refs.code, {
+        lineNumbers: true,
+        matchBrackets: true,
+        mode: 'application/x-httpd-php',
+        indentUnit: 4,
+        indentWithTabs: true
+      })
+    }
   }
-}
 </script>
