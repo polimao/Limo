@@ -1,8 +1,9 @@
 
 <template>
-  <main>  <el-container style=' height: 380px;padding:30px;'>
+  <main>
+    <el-container style='height: 380px;padding:30px;'>
 
-       <el-container style="background-color: rgb(238, 241, 246)">
+      <el-container style="background-color: rgb(238, 241, 246)">
         <el-header style="font-size: 12px">
           <span>foo</span>
         </el-header>
@@ -24,18 +25,20 @@
 
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"> 查看方式</i>
-           <el-dropdown-menu slot="dropdown">
+          <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>左右并排</el-dropdown-item>
             <el-dropdown-item>上下对比</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-                    <router-link to="/test"><i class="el-icon-menu"> Home</i></router-link>
+        <router-link to="/test">
+          <i class="el-icon-menu"> Home</i>
+        </router-link>
 
       </el-header>
 
       <el-main>
 
-         <el-header style="font-size: 12px;width:100%;">
+        <el-header style="font-size: 12px;width:100%;">
         </el-header>
         <!-- <el-main> -->
         <table id="diff-table">
@@ -57,8 +60,8 @@
   width: 100%;
   border-spacing: 0px;
   clear: both;
-  font-family: 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu',
-    'Droid Sans', 'sans-serif';
+  font-family: "Segoe WPC", "Segoe UI", "HelveticaNeue-Light", "Ubuntu",
+    "Droid Sans", "sans-serif";
   font-size: 14px;
 }
 #diff-table .diff-index {
@@ -142,7 +145,7 @@
 var diffCompare = require('../components/DiffCompare')
 
 export default {
-  data() {
+  data () {
     const item = {
       name: '王小虎'
     }
@@ -172,20 +175,20 @@ export default {
     }
   },
   methods: {
-    compare() {
+    compare () {
       console.log("comparing 'foo' and 'bar'")
 
       var f1 = this.foo.toString().split('\n')
       var f2 = this.bar.toString().split('\n')
       var _this = this
-      diffCompare.compare(f1, f2, function(result) {
+      diffCompare.compare(f1, f2, function (result) {
         _this.compareResult = result
         _this.diffData = result
       })
     },
-    tableCellStyle(row, index) {
+    tableCellStyle (row, index) {
       console.log(row.row.class)
-      return row.row.class + '_style'
+      return row.row.class + '_style';
     }
   }
 }
