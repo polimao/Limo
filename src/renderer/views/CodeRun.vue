@@ -3,6 +3,7 @@
   <main>
 <article>
 <h2>Code Run</h2>
+  <h5><router-link to="/"><el-button>go to home</el-button></router-link></h5>
 <form><textarea  ref="code" name="code">
 <?php
 $a = array('a' => 1, 'b' => 2, 3 => 'c');

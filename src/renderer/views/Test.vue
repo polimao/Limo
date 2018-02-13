@@ -1,9 +1,11 @@
 
 <template>
-  <main>
-<article>
-<h2>Code Run</h2>
-<form><textarea  ref="code" name="code">
+    <main>
+          <article>
+ <h2>Code Run</h2>
+ <h5><router-link to="/"><el-button>go to home</el-button></router-link></h5>
+
+ <form><textarea  ref="code" name="code">
 <?php
 $a = array('a' => 1, 'b' => 2, 3 => 'c');
 
@@ -15,7 +17,7 @@ function hello($who) {
 ?>
 <p>The program says <?= hello("World") ?>.</p>
 <script>
-	alert("And here is some JS code"); // also colored
+	alert('And here is some JS code') // also colored
 </script>
 </textarea></form>
 

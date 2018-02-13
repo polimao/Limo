@@ -1,11 +1,8 @@
 
 <template>
-  <main>
-    <router-link to="/test">to test</router-link>
+  <main>  <el-container style=' height: 380px;padding:30px;'>
 
-    <el-container style="height: 500px;padding:30px;">
-
-      <el-container style="background-color: rgb(238, 241, 246)">
+       <el-container style="background-color: rgb(238, 241, 246)">
         <el-header style="font-size: 12px">
           <span>foo</span>
         </el-header>
@@ -24,18 +21,21 @@
     </el-container>
     <el-container>
       <el-header class="tool-bar angled-135">
+
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"> 查看方式</i>
-          <el-dropdown-menu slot="dropdown">
+           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>左右并排</el-dropdown-item>
             <el-dropdown-item>上下对比</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>angled-135
+        </el-dropdown>
+                    <router-link to="/test"><i class="el-icon-menu"> Home</i></router-link>
+
       </el-header>
 
       <el-main>
 
-        <el-header style="font-size: 12px;width:100%;">
+         <el-header style="font-size: 12px;width:100%;">
         </el-header>
         <!-- <el-main> -->
         <table id="diff-table">
@@ -93,7 +93,7 @@
   padding: 0px;
 }
 .CodeMirror {
-  height: 440px;
+  height: 300px;
 }
 .active {
   background: #000;
