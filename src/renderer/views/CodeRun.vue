@@ -22,7 +22,7 @@ function hello($who) {
             <p>The program says
               <?= hello("World") ?>.</p>
             <script>
-            alert("And here is some JS code"); // also colored
+            alert('And here is some JS code') // also colored
             </script>
         </textarea>
       </form>
