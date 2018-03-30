@@ -23,11 +23,11 @@
     <el-container>
       <el-header class="tool-bar angled-135">
 
-        <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"> 查看方式</i>
+        <el-dropdown size="mini" @command='triggerViewStyle' type="info">
+          <i class="el-icon-setting"> 显示方式</i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>左右并排</el-dropdown-item>
-            <el-dropdown-item>上下对比</el-dropdown-item>
+            <el-dropdown-item command="abreast">左右并排</el-dropdown-item>
+            <el-dropdown-item command="sidebyside">上下对比</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <router-link to="/test">
@@ -41,7 +41,7 @@
         <el-header style="font-size: 12px;width:100%;">
         </el-header>
 
-        <table id="diff-table">
+        <table id="diff-table" :class="{ hide: viewStyle == 'abreast'}">
           <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
             <td class="diff-index">{{v.fooIdx}}</td>
             <td class="diff-index">{{v.barIdx}}</td>
@@ -49,7 +49,7 @@
           </tr>
         </table>
 
-        <table id="diff-table-abreast">
+        <table id="diff-table-abreast" :class="{ hide: viewStyle == 'sidebyside'}">
           <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
 
             <td class="diff-index">{{v.fooIdx}}</td>
@@ -70,6 +70,9 @@
 </template>
 
 <style>
+  .hide {
+    display: none;
+  }
   .bar_head {
     text-align: right;
     font-size: 12px;
@@ -184,13 +187,13 @@
     /* border-bottom: 1px solid #ddd; */
   }
   /* .stripes {
-                                                                                                                                        height: 25px;
-                                                                                                                                        width: 37px;
-                                                                                                                                        float: left;
-                                                                                                                                        margin: 10px;
-                                                                                                                                        background-size: 5px 5px; 
-                                                                                                                                        box-shadow: 1px 1px 8px gray;
-                                                                                                                                      } */
+                                                                                                                                                                                                                            height: 25px;
+                                                                                                                                                                                                                            width: 37px;
+                                                                                                                                                                                                                            float: left;
+                                                                                                                                                                                                                            margin: 10px;
+                                                                                                                                                                                                                            background-size: 5px 5px; 
+                                                                                                                                                                                                                            box-shadow: 1px 1px 8px gray;
+                                                                                                                                                                                                                          } */
 
   .angled-135 {
     background-color: #ddd;
@@ -222,6 +225,7 @@
         bar: '',
         compareResult: '',
         diffData: Array(3).fill(item),
+        viewStyle: 'abreast',
         fooOptions: {
           // codemirror options
           tabSize: 4,
@@ -256,8 +260,12 @@
         })
       },
       tableCellStyle(row, index) {
-        console.log(row.row.class)
+        // console.log(row.row.class)
         return row.row.class + '_style'
+      },
+      triggerViewStyle(viewStyle) {
+        console.log(viewStyle)
+        this.viewStyle = viewStyle
       }
     }
   }
