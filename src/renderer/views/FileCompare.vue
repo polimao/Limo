@@ -40,13 +40,27 @@
 
         <el-header style="font-size: 12px;width:100%;">
         </el-header>
-        <!-- <el-main> -->
+
         <table id="diff-table">
           <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
             <td class="diff-index">{{v.fooIdx}}</td>
             <td class="diff-index">{{v.barIdx}}</td>
             <td class="diff-value">{{v.value}}</td>
-            <!-- <td>{{v.index}}</td> -->
+          </tr>
+        </table>
+
+        <table id="diff-table-abreast">
+          <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
+
+            <td class="diff-index">{{v.fooIdx}}</td>
+            <td class="diff-value" :class="v.class != 'foo' && v.class != 'peace'?'zero_style':''">
+              {{ v.class == 'foo' || v.class == 'peace'? v.value : ''}}
+            </td>
+
+            <td class="diff-index">{{v.barIdx}}</td>
+            <td class="diff-value" :class="v.class != 'bar' && v.class != 'peace'?'zero_style':''">
+              {{v.class == 'bar' || v.class == 'peace'?v.value:''}}
+            </td>
           </tr>
         </table>
 
@@ -90,6 +104,33 @@
     border-bottom: 1px solid #bbbbcb;
   }
 
+  #diff-table-abreast {
+    width: 100%;
+    border-spacing: 0px;
+    clear: both;
+    font-family: 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu',
+      'Droid Sans', 'sans-serif';
+    font-size: 14px;
+  }
+
+  #diff-table-abreast .diff-index {
+    background: #eeeedf;
+    border: 1px solid #bbbbcb;
+    border-right: 0px;
+    border-top: 0px;
+    width: 40px;
+    text-align: center;
+    color: #928769;
+  }
+  #diff-table-abreast .diff-value {
+    border-left: 1px solid #bbbbcb;
+    border-right: 1px solid #bbbbcb;
+    width: 45%;
+  }
+  #diff-table-abreast tr:last-of-type td {
+    border-bottom: 1px solid #bbbbcb;
+  }
+
   .el-header {
     background-color: #b3c0d1;
     color: #333;
@@ -116,6 +157,24 @@
   .foo_style {
     background: #e39d9b;
   }
+  .zero_style {
+    text-align: right;
+    font-size: 12px;
+    background-size: 5px 5px;
+    background-color: #ddd !important;
+    background-image: -webkit-gradient(
+      linear,
+      0 0,
+      100% 100%,
+      color-stop(0.25, rgba(255, 255, 255, 1)),
+      color-stop(0.25, transparent),
+      color-stop(0.5, transparent),
+      color-stop(0.5, rgba(255, 255, 255, 1)),
+      color-stop(0.75, rgba(255, 255, 255, 1)),
+      color-stop(0.75, transparent),
+      to(transparent)
+    ) !important;
+  }
   .tool-bar {
     text-align: right;
     font-size: 12px;
@@ -125,13 +184,13 @@
     /* border-bottom: 1px solid #ddd; */
   }
   /* .stripes {
-                                                      height: 25px;
-                                                      width: 37px;
-                                                      float: left;
-                                                      margin: 10px;
-                                                      background-size: 5px 5px; 
-                                                      box-shadow: 1px 1px 8px gray;
-                                                    } */
+                                                                                                                                        height: 25px;
+                                                                                                                                        width: 37px;
+                                                                                                                                        float: left;
+                                                                                                                                        margin: 10px;
+                                                                                                                                        background-size: 5px 5px; 
+                                                                                                                                        box-shadow: 1px 1px 8px gray;
+                                                                                                                                      } */
 
   .angled-135 {
     background-color: #ddd;
