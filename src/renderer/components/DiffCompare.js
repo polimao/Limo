@@ -92,17 +92,27 @@ function processContents(contents1, contents2, appendFn) {
       result = {}
 
     if (element1 === undefined) {
-      result.value = '\t+\t' + element2
+      // result.value = '\t+\t' + element2
+      result.value = element2
       result.class = 'bar'
     } else if (element2 === undefined) {
-      result.value = '\t-\t' + element1
+      // result.value = '\t-\t' + element1
+      result.value = element1
       result.class = 'foo'
     } else if (element1 === element2) {
-      result.value = '\t\t' + element1
+      // result.value = '\t\t' + element1
+      result.value = element1
       result.class = 'peace'
     } else if (element1 !== element2) {
-      result.value = '\t*\t' + element1 + '|' + element2
-      result.class = 'war'
+      result.value = element1
+      result.class = 'foo'
+      appendFn(result)
+      result = {}
+      result.value = element2
+      result.class = 'bar'
+      appendFn(result)
+
+      continue
     }
 
     if (result) appendFn(result)

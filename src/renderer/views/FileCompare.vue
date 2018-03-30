@@ -4,8 +4,8 @@
     <el-container style='height: 380px;padding:30px;'>
 
       <el-container style="background-color: rgb(238, 241, 246)">
-        <el-header style="font-size: 12px">
-          <span>foo</span>
+        <el-header class='foo_head'>
+          <!-- <span>foo</span> -->
         </el-header>
 
         <codemirror v-model="foo" :options="fooOptions" @input="compare"></codemirror>
@@ -13,8 +13,8 @@
       </el-container>
 
       <el-container>
-        <el-header style="text-align: right; font-size: 12px">
-          <span>bar</span>
+        <el-header class='bar_head'>
+          <!-- <span>bar</span> -->
         </el-header>
 
         <codemirror v-model="bar" :options="barOptions" @input="compare"></codemirror>
@@ -56,6 +56,15 @@
 </template>
 
 <style>
+  .bar_head {
+    text-align: right;
+    font-size: 12px;
+    background-color: #58e242 !important;
+  }
+  .foo_head {
+    font-size: 12px;
+    background-color: #e39d9b !important;
+  }
   #diff-table {
     width: 100%;
     border-spacing: 0px;
@@ -116,13 +125,13 @@
     /* border-bottom: 1px solid #ddd; */
   }
   /* .stripes {
-    height: 25px;
-    width: 37px;
-    float: left;
-    margin: 10px;
-    background-size: 5px 5px; 
-    box-shadow: 1px 1px 8px gray;
-  } */
+                                                      height: 25px;
+                                                      width: 37px;
+                                                      float: left;
+                                                      margin: 10px;
+                                                      background-size: 5px 5px; 
+                                                      box-shadow: 1px 1px 8px gray;
+                                                    } */
 
   .angled-135 {
     background-color: #ddd;
@@ -180,6 +189,7 @@
 
         var f1 = this.foo.toString().split('\n')
         var f2 = this.bar.toString().split('\n')
+
         var _this = this
         diffCompare.compare(f1, f2, function(result) {
           _this.compareResult = result
