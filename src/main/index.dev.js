@@ -16,7 +16,8 @@ require('electron-debug')({ showDevTools: true })
 // Install `vue-devtools`
 require('electron').app.on('ready', () => {
   let installExtension = require('electron-devtools-installer')
-  installExtension.default(installExtension.VUEJS_DEVTOOLS)
+  installExtension
+    .default(installExtension.VUEJS_DEVTOOLS)
     .then(() => {})
     .catch(err => {
       console.log('Unable to install `vue-devtools`: \n', err)
@@ -25,3 +26,25 @@ require('electron').app.on('ready', () => {
 
 // Require `main` process to boot app
 require('./index')
+
+// const { remote } = require('electron')
+// const { app } = remote
+
+
+
+
+//   2018 03-06 注释
+// var menubar = require('menubar')
+
+// var mb = menubar()
+
+// console.log('dev ----- ')
+// mb.on('ready', function ready() {
+//   console.log('--limao---')
+//   console.log(app.getAppPath())
+
+//   // Build default menu for text editing and devtools. (gone since electron 0.25.2)
+//   // var menu = Menu.buildFromTemplate(template)
+//   // Menu.setApplicationMenu(menu)
+// })
+//   2018 03-06 注释

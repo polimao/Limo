@@ -1,40 +1,67 @@
 <template>
   <main>
-    <codemirror v-model="code" :options="cmOption"></codemirror>
+    生命周期演示
   </main>
 </template>
 
 <script>
-console.log('234567898765432345678876543456789', window.CodeMirror)
-import Vue from 'vue'
-
-// 载入 codemirror 组件
-import CodeMirror from 'codemirror/lib/codemirror'
-import 'codemirror/mode/php/php'
-
-window.CodeMirror = CodeMirror
-
-import VueCodemirror from 'vue-codemirror'
-
-Vue.use(VueCodemirror)
-export default {
-  data() {
-    return {
-      code: `<?php \necho 12;\narray_merge(13,12); ?>`,
-      cmOption: {
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: 'application/x-httpd-php',
-        indentUnit: 4,
-        indentWithTabs: true
-      }
-    }
-  },
-  methods: {
-    mounted() {
-      console.log('this is current codemirror object', this.codemirror)
-      // you can use this.codemirror to do something...
+  export default {
+    data() {
+      return { test: 21 }
+    },
+    beforeCreate: function() {
+      console.group('beforeCreate 创建前状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el) // undefined
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data) // undefined
+      console.log('%c%s', 'color:red', 'message: ' + this.message)
+    },
+    created: function() {
+      console.group('created 创建完毕状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el) // undefined
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data) // 已被初始化
+      console.log('%c%s', 'color:red', 'message: ' + this.message) // 已被初始化
+    },
+    beforeMount: function() {
+      console.group('beforeMount 挂载前状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el) // 已被初始化
+      console.log(this.$el)
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data) // 已被初始化
+      console.log('%c%s', 'color:red', 'message: ' + this.message) // 已被初始化
+    },
+    mounted: function() {
+      console.group('mounted 挂载结束状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el) // 已被初始化
+      console.log(this.$el)
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data) // 已被初始化
+      console.log('%c%s', 'color:red', 'message: ' + this.message) // 已被初始化
+    },
+    beforeUpdate: function() {
+      console.group('beforeUpdate 更新前状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el)
+      console.log(this.$el)
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data)
+      console.log('%c%s', 'color:red', 'message: ' + this.message)
+    },
+    updated: function() {
+      console.group('updated 更新完成状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el)
+      console.log(this.$el)
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data)
+      console.log('%c%s', 'color:red', 'message: ' + this.message)
+    },
+    beforeDestroy: function() {
+      console.group('beforeDestroy 销毁前状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el)
+      console.log(this.$el)
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data)
+      console.log('%c%s', 'color:red', 'message: ' + this.message)
+    },
+    destroyed: function() {
+      console.group('destroyed 销毁完成状态===============》')
+      console.log('%c%s', 'color:red', 'el     : ' + this.$el)
+      console.log(this.$el)
+      console.log('%c%s', 'color:red', 'data   : ' + this.$data)
+      console.log('%c%s', 'color:red', 'message: ' + this.message)
     }
   }
-}
 </script>
