@@ -1,72 +1,63 @@
-
 <template>
-  <main>
-    <el-container style='height: 380px;padding:30px;'>
+  <div>
+    <el-row>
+      <el-col :span="12">
+        <el-container style="background-color: rgb(238, 241, 246)">
+          <el-header class='foo_head'>
+            <!-- <span>foo</span> -->
+          </el-header>
 
-      <el-container style="background-color: rgb(238, 241, 246)">
-        <el-header class='foo_head'>
-          <!-- <span>foo</span> -->
-        </el-header>
+          <codemirror v-model="foo" :options="fooOptions" @input="compare"></codemirror>
 
-        <codemirror v-model="foo" :options="fooOptions" @input="compare"></codemirror>
+        </el-container>
+      </el-col>
+      <el-col :span="12">
+        <el-container>
+          <el-header class='bar_head'>
+            <!-- <span>bar</span> -->
+          </el-header>
 
-      </el-container>
-
-      <el-container>
-        <el-header class='bar_head'>
-          <!-- <span>bar</span> -->
-        </el-header>
-
-        <codemirror v-model="bar" :options="barOptions" @input="compare"></codemirror>
-      </el-container>
-    </el-container>
-    <el-container>
+          <codemirror v-model="bar" :options="barOptions" @input="compare"></codemirror>
+        </el-container>
+      </el-col>
+    </el-row>
+    <el-row>
       <el-header class="tool-bar angled-135">
-
-        <el-dropdown size="mini" @command='triggerViewStyle' type="info">
-          <i class="el-icon-setting"> 显示方式</i>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="abreast">左右并排</el-dropdown-item>
-            <el-dropdown-item command="sidebyside">上下对比</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <router-link to="/test">
+        <i class="el-icon-caret-right" @click="triggerViewStyle('abreast')">左右并排</i>
+        <i class="el-icon-caret-bottom" @click="triggerViewStyle('sidebyside')">上下对比</i>
+        <router-link to="/home">
           <i class="el-icon-menu"> Home</i>
         </router-link>
 
       </el-header>
 
-      <el-main>
+      <el-header style="font-size: 12px;">
+      </el-header>
 
-        <el-header style="font-size: 12px;width:100%;">
-        </el-header>
+      <table id="diff-table" :class="{ hide: viewStyle == 'abreast'}">
+        <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
+          <td class="diff-index">{{v.fooIdx}}</td>
+          <td class="diff-index">{{v.barIdx}}</td>
+          <td class="diff-value">{{v.value}}</td>
+        </tr>
+      </table>
 
-        <table id="diff-table" :class="{ hide: viewStyle == 'abreast'}">
-          <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
-            <td class="diff-index">{{v.fooIdx}}</td>
-            <td class="diff-index">{{v.barIdx}}</td>
-            <td class="diff-value">{{v.value}}</td>
-          </tr>
-        </table>
+      <table id="diff-table-abreast" :class="{ hide: viewStyle == 'sidebyside'}">
+        <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
 
-        <table id="diff-table-abreast" :class="{ hide: viewStyle == 'sidebyside'}">
-          <tr :class="v.class+'_style'" v-for="(v, k) in diffData">
+          <td class="diff-index">{{v.fooIdx}}</td>
+          <td class="diff-value" :class="v.class != 'foo' && v.class != 'peace'?'zero_style':''">
+            {{ v.class == 'foo' || v.class == 'peace'? v.value : ''}}
+          </td>
 
-            <td class="diff-index">{{v.fooIdx}}</td>
-            <td class="diff-value" :class="v.class != 'foo' && v.class != 'peace'?'zero_style':''">
-              {{ v.class == 'foo' || v.class == 'peace'? v.value : ''}}
-            </td>
-
-            <td class="diff-index">{{v.barIdx}}</td>
-            <td class="diff-value" :class="v.class != 'bar' && v.class != 'peace'?'zero_style':''">
-              {{v.class == 'bar' || v.class == 'peace'?v.value:''}}
-            </td>
-          </tr>
-        </table>
-
-      </el-main>
-    </el-container>
-  </main>
+          <td class="diff-index">{{v.barIdx}}</td>
+          <td class="diff-value" :class="v.class != 'bar' && v.class != 'peace'?'zero_style':''">
+            {{v.class == 'bar' || v.class == 'peace'?v.value:''}}
+          </td>
+        </tr>
+      </table>
+    </el-row>
+  </div>
 </template>
 
 <style>
@@ -186,14 +177,6 @@
 
     /* border-bottom: 1px solid #ddd; */
   }
-  /* .stripes {
-                                                                                                                                                                                                                            height: 25px;
-                                                                                                                                                                                                                            width: 37px;
-                                                                                                                                                                                                                            float: left;
-                                                                                                                                                                                                                            margin: 10px;
-                                                                                                                                                                                                                            background-size: 5px 5px; 
-                                                                                                                                                                                                                            box-shadow: 1px 1px 8px gray;
-                                                                                                                                                                                                                          } */
 
   .angled-135 {
     background-color: #ddd;
