@@ -204,8 +204,8 @@
         name: '王小虎'
       }
       return {
-        foo: '',
-        bar: '',
+        foo: '第一行\nfoo\n第三行',
+        bar: '第一行\nbar\n第三行',
         compareResult: '',
         diffData: Array(3).fill(item),
         viewStyle: 'abreast',
@@ -250,6 +250,9 @@
         console.log(viewStyle)
         this.viewStyle = viewStyle
       }
+    },
+    created: function() {
+      this.compare()
     }
   }
 </script>
