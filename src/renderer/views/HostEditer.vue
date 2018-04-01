@@ -92,6 +92,7 @@
 
 <script>
   import path from 'path'
+  import fs from 'fs'
   import { remote } from 'electron'
   import { ENGINE_METHOD_CIPHERS } from 'constants'
 
