@@ -33,14 +33,14 @@ Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.prototype.$db = db
-db.insert([
-  {
-    a: 5
-  },
-  {
-    a: 42
-  }
-])
+// db.insert([
+//   {
+//     a: 5
+//   },
+//   {
+//     a: 42
+//   }
+// ])
 /* eslint-disable no-new */
 new Vue({
   components: {

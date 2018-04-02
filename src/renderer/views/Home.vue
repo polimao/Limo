@@ -17,8 +17,8 @@
                 <router-link to='/file-compare'>
                   <el-menu-item index="1-1">File Compare</el-menu-item>
                 </router-link>
-                <router-link to='/host-editer'>
-                  <el-menu-item index="1-2">Host Editer</el-menu-item>
+                <router-link to='/host-manager'>
+                  <el-menu-item index="1-2">Host Manager</el-menu-item>
                 </router-link>
                 <router-link to='/code-mirror'>
                   <el-menu-item index="1-2">Code Mirror</el-menu-item>
