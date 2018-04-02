@@ -46,6 +46,11 @@ export default new Router({
       component: require('@/views/Test').default
     },
     {
+      path: '/tttt',
+      name: 'tttt',
+      component: require('@/views/tttt').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

@@ -60,7 +60,7 @@
     "axios": "^0.16.1",
     "bootstrap": "^4.0.0",
     "codemirror": "^5.34.0",
-    "element-ui": "^2.1.0",
+    "element-ui": "^2.3.2",
     "file-diff-parser": "0.0.1",
     "menubar": "^5.2.3",
     "nedb": "^1.8.0",

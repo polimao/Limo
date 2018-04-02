@@ -3,6 +3,10 @@
   <body>
     <el-container>
       <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color}">
+
+        <div class="demo-color-box">
+          <router-link to="/home">home</router-link>
+        </div>
         <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="v in scenes" @click="currentScene = v">
           {{ v.name}}
           <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div>
@@ -14,7 +18,8 @@
         <hr/>
         <h3>
           配色：
-          <el-color-picker v-model="currentScene.color"></el-color-picker>
+          <el-color-picker v-model="currentScene.color" size="mini" :predefine="predefineColors">
+          </el-color-picker>
         </h3>
         <hr/>
 
@@ -73,26 +78,6 @@
             //   domain: 'www.baidu.com'
             //   // note: '05月30日'
             // },
-            // {
-            //   ip: '172.0.0.1',
-            //   domain: 'www.baidu.com'
-            //   // note: '05月30日'
-            // },
-            // {
-            //   ip: '172.0.0.1',
-            //   domain: 'www.baidu.com',
-            //   note: '05月30日'
-            // },
-            // {
-            //   ip: '172.0.0.1',
-            //   domain: 'www.baidu.com',
-            //   note: '05月30日'
-            // },
-            // {
-            //   ip: '172.0.0.1',
-            //   domain: 'www.baidu.com',
-            //   note: '05月30日'
-            // }
           ]
         },
         scenes: [
@@ -105,26 +90,6 @@
               //   ip: '172.0.0.1',
               //   domain: 'www.baidu.com'
               //   // note: '05月30日'
-              // },
-              // {
-              //   ip: '172.0.0.1',
-              //   domain: 'www.baidu.com'
-              //   // note: '05月30日'
-              // },
-              // {
-              //   ip: '172.0.0.1',
-              //   domain: 'www.baidu.com',
-              //   note: '05月30日'
-              // },
-              // {
-              //   ip: '172.0.0.1',
-              //   domain: 'www.baidu.com',
-              //   note: '05月30日'
-              // },
-              // {
-              //   ip: '172.0.0.1',
-              //   domain: 'www.baidu.com',
-              //   note: '05月30日'
               // }
             ]
           },
@@ -146,6 +111,15 @@
             roleName: 'scene3',
             hostData: []
           }
+        ],
+        predefineColors: [
+          '#ff4500',
+          '#ff8c00',
+          '#ffd700',
+          '#90ee90',
+          '#00ced1',
+          '#1e90ff',
+          '#c71585'
         ],
         editerPath: '/etc/hosts',
         preData: ''
@@ -239,6 +213,9 @@
     margin: 0;
     padding: 0;
   }
+  main {
+    display: inline !important;
+  }
   body {
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
       Microsoft YaHei, SimSun, sans-serif;
@@ -294,7 +271,6 @@
     font-size: 15px;
     background: #eee;
     border-radius: 5px;
-
     cursor: auto;
   }
   .current {
