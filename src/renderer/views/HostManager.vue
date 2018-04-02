@@ -1,8 +1,8 @@
 <template>
 
-  <body>
+  <main>
     <el-container>
-      <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color}">
+      <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color,'height' : clientHeight}">
 
         <div class="demo-color-box">
           <router-link to="/home">home</router-link>
@@ -53,12 +53,13 @@
             </template>
           </el-table-column>
         </el-table>
+        <!-- {{clientHeight}} -->
         <textarea disabled class="preview">{{ preData }}
         </textarea>
 
       </el-main>
     </el-container>
-  </body>
+  </main>
 </template>
 
 
@@ -122,7 +123,8 @@
           '#c71585'
         ],
         editerPath: '/etc/hosts',
-        preData: ''
+        preData: '',
+        clientHeight: '600px'
       }
     },
     methods: {
@@ -137,7 +139,7 @@
         console.log(index, row)
       },
       saveHost() {
-        var _this = this
+        const that = this
         this.$db.update(
           { table: 'hostData' },
           {
@@ -148,9 +150,9 @@
           function(err, numReplaced) {
             console.log(err, numReplaced)
             if (numReplaced !== 1) {
-              _this.$db.insert({
+              that.$db.insert({
                 table: 'hostData',
-                scenes: _this.scenes
+                scenes: that.scenes
               })
             }
           }
@@ -159,8 +161,8 @@
         this.$db.findOne({ table: 'hostData' }, function(err, docs) {
           console.log(' updated hostData', err, docs)
           if (docs) {
-            _this.scenes = docs.scenes
-            _this.currentScene = _this.scenes[0]
+            that.scenes = docs.scenes
+            that.currentScene = that.scenes[0]
           }
         })
 
@@ -172,19 +174,28 @@
         this.$db.find({}, function(err, docs) {
           console.log(err, docs)
         })
+      },
+      getClientHeight() {
+        this.clientHeight = `${document.documentElement.clientHeight}px`
+        const that = this
+        // 然后监听window的resize事件．在浏览器窗口变化时再设置下背景图高度．
+
+        window.onresize = function() {
+          that.clientHeight = `${document.documentElement.clientHeight}px`
+        }
       }
     },
     mounted() {
       // 删除所有数据
       // this.$db.remove({}, { multi: true }, function(err, numRemoved) {})
 
-      var _this = this
+      const that = this
       // 查询数据
       this.$db.findOne({ table: 'hostData' }, function(error, docs) {
         console.log(' get hostData', error, docs)
         if (docs) {
-          _this.scenes = docs.scenes
-          _this.currentScene = _this.scenes[0]
+          that.scenes = docs.scenes
+          that.currentScene = that.scenes[0]
         }
       })
 
@@ -192,6 +203,8 @@
       // this.$db.find({}, function(err, docs) {
       //   console.log(docs)
       // })
+
+      this.getClientHeight()
     },
     watch: {
       currentScene: function(val) {
@@ -209,9 +222,10 @@
 
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
+  *,
+  body {
+    margin: 0px 0px;
+    padding: 0px;
   }
   main {
     display: inline !important;
@@ -266,11 +280,11 @@
     margin: 10px auto;
     display: block;
     width: 95%;
-    height: 500px;
+    height: 300px;
     font-size: 15px;
     background: #eee;
     border-radius: 5px;
-    cursor: auto;
+    cursor: not-allowed;
   }
   .current {
     line-height: 2px;
