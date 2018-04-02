@@ -146,8 +146,8 @@
           },
           {},
           function(err, numReplaced) {
-            console.log(numReplaced)
-            if (numReplaced != 1) {
+            console.log(err, numReplaced)
+            if (numReplaced !== 1) {
               _this.$db.insert({
                 table: 'hostData',
                 scenes: _this.scenes
@@ -157,7 +157,7 @@
         )
 
         this.$db.findOne({ table: 'hostData' }, function(err, docs) {
-          console.log(' updated hostData', docs)
+          console.log(' updated hostData', err, docs)
           if (docs) {
             _this.scenes = docs.scenes
             _this.currentScene = _this.scenes[0]
@@ -170,7 +170,7 @@
 
         // 查询所有数据
         this.$db.find({}, function(err, docs) {
-          console.log(docs)
+          console.log(err, docs)
         })
       }
     },
@@ -180,8 +180,8 @@
 
       var _this = this
       // 查询数据
-      this.$db.findOne({ table: 'hostData' }, function(err, docs) {
-        console.log(' get hostData', docs)
+      this.$db.findOne({ table: 'hostData' }, function(error, docs) {
+        console.log(' get hostData', error, docs)
         if (docs) {
           _this.scenes = docs.scenes
           _this.currentScene = _this.scenes[0]
@@ -196,9 +196,9 @@
     watch: {
       currentScene: function(val) {
         var preData = []
-        val.hostData.forEach(row => {
-          row = row.ip + ' ' + row.domain + '     // ' + row.note
-          preData.push(row)
+        val.hostData.forEach(function(row) {
+          var rowStr = row.ip + ' ' + row.domain + '     // ' + row.note
+          preData.push(rowStr)
         })
         this.preData = preData.join('\n')
       }
@@ -236,7 +236,6 @@
     overflow: inherit;
   }
   .demo-color-box {
-    /* border-radius: 4px; */
     padding: 20px;
     margin: 8px 0;
     height: 36px;
