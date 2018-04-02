@@ -3,7 +3,7 @@
   <body>
     <el-container>
       <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color}">
-        <div class="demo-color-box" :style="{ background : v.color }" v-for="v in scenes" @click="currentScene = v">
+        <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="v in scenes" @click="currentScene = v">
           {{ v.name}}
           <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div>
         </div>
@@ -19,8 +19,8 @@
         <hr/>
 
         <h3>规则：</h3>
-        <hr/>
-        <el-table :data="hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
+
+        <el-table :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
           <el-table-column label="IP" width="180">
             <template scope="scope">
               <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
@@ -48,10 +48,9 @@
             </template>
           </el-table-column>
         </el-table>
-        <textarea disabled class="preview">
-          <br>数据:{{hostData}}
-          <br>数据:{{hostData}}
-          <br>数据:{{scenes}}</textarea>
+        <textarea disabled class="preview">{{ preData }}
+        </textarea>
+
       </el-main>
     </el-container>
   </body>
@@ -60,65 +59,96 @@
 
 <script>
   // import path from 'path'
-  import fs from 'fs'
+  // import fs from 'fs'
   export default {
     data() {
       return {
         currentScene: {
           name: '通用',
           color: 'red',
-          roleName: 'common'
+          roleName: 'common',
+          hostData: [
+            // {
+            //   ip: '172.0.0.1',
+            //   domain: 'www.baidu.com'
+            //   // note: '05月30日'
+            // },
+            // {
+            //   ip: '172.0.0.1',
+            //   domain: 'www.baidu.com'
+            //   // note: '05月30日'
+            // },
+            // {
+            //   ip: '172.0.0.1',
+            //   domain: 'www.baidu.com',
+            //   note: '05月30日'
+            // },
+            // {
+            //   ip: '172.0.0.1',
+            //   domain: 'www.baidu.com',
+            //   note: '05月30日'
+            // },
+            // {
+            //   ip: '172.0.0.1',
+            //   domain: 'www.baidu.com',
+            //   note: '05月30日'
+            // }
+          ]
         },
         scenes: [
           {
             name: '通用',
             color: '#5484B4',
-            roleName: 'common'
+            roleName: 'common',
+            hostData: [
+              // {
+              //   ip: '172.0.0.1',
+              //   domain: 'www.baidu.com'
+              //   // note: '05月30日'
+              // },
+              // {
+              //   ip: '172.0.0.1',
+              //   domain: 'www.baidu.com'
+              //   // note: '05月30日'
+              // },
+              // {
+              //   ip: '172.0.0.1',
+              //   domain: 'www.baidu.com',
+              //   note: '05月30日'
+              // },
+              // {
+              //   ip: '172.0.0.1',
+              //   domain: 'www.baidu.com',
+              //   note: '05月30日'
+              // },
+              // {
+              //   ip: '172.0.0.1',
+              //   domain: 'www.baidu.com',
+              //   note: '05月30日'
+              // }
+            ]
           },
           {
             name: '情景一',
             color: '#D8463F',
-            roleName: 'scene1'
+            roleName: 'scene1',
+            hostData: []
           },
           {
             name: '情景二',
             color: '#5DA150',
-            roleName: 'scene2'
+            roleName: 'scene2',
+            hostData: []
           },
           {
             name: '情景三',
             color: '#F6D449',
-            roleName: 'scene3'
+            roleName: 'scene3',
+            hostData: []
           }
         ],
-        hostData: [
-          {
-            ip: '172.0.0.1',
-            domain: 'www.baidu.com'
-            // note: '05月30日'
-          },
-          {
-            ip: '172.0.0.1',
-            domain: 'www.baidu.com'
-            // note: '05月30日'
-          },
-          {
-            ip: '172.0.0.1',
-            domain: 'www.baidu.com',
-            note: '05月30日'
-          },
-          {
-            ip: '172.0.0.1',
-            domain: 'www.baidu.com',
-            note: '05月30日'
-          },
-          {
-            ip: '172.0.0.1',
-            domain: 'www.baidu.com',
-            note: '05月30日'
-          }
-        ],
-        editerPath: '/etc/hosts'
+        editerPath: '/etc/hosts',
+        preData: ''
       }
     },
     methods: {
@@ -133,45 +163,71 @@
         console.log(index, row)
       },
       saveHost() {
-        fs.writeFile(this.editerPath, this.hostData.toString(), function(err) {
-          if (!err) console.log('写入成功！')
+        var _this = this
+        this.$db.update(
+          { table: 'hostData' },
+          {
+            table: 'hostData',
+            scenes: this.scenes
+          },
+          {},
+          function(err, numReplaced) {
+            console.log(numReplaced)
+            if (numReplaced != 1) {
+              _this.$db.insert({
+                table: 'hostData',
+                scenes: _this.scenes
+              })
+            }
+          }
+        )
+
+        this.$db.findOne({ table: 'hostData' }, function(err, docs) {
+          console.log(' updated hostData', docs)
+          if (docs) {
+            _this.scenes = docs.scenes
+            _this.currentScene = _this.scenes[0]
+          }
+        })
+
+        // fs.writeFile(this.editerPath, this.hostData.toString(), function(err) {
+        //   if (!err) console.log('写入成功！')
+        // })
+
+        // 查询所有数据
+        this.$db.find({}, function(err, docs) {
+          console.log(docs)
         })
       }
     },
     mounted() {
-      this.currentScene = this.scenes[0]
+      // 删除所有数据
+      // this.$db.remove({}, { multi: true }, function(err, numRemoved) {})
 
-      this.$db.remove({}, { multi: true }, function(err, numRemoved) {})
-
-      this.$db.insert({
-        table: 'hostData',
-        common: this.hostData,
-        scene1: this.hostData,
-        scene2: this.hostData,
-        scene3: this.hostData
-      })
-
+      var _this = this
+      // 查询数据
       this.$db.findOne({ table: 'hostData' }, function(err, docs) {
-        console.log('hostData', docs)
+        console.log(' get hostData', docs)
+        if (docs) {
+          _this.scenes = docs.scenes
+          _this.currentScene = _this.scenes[0]
+        }
       })
 
-      // Find all documents in the collection
-      this.$db.find({}, function(err, docs) {
-        console.log(docs)
-      })
-
-      this.$db.update({ table: 'hostData' }, { common: 567 }, {}, function(
-        err,
-        numReplaced
-      ) {
-        console.log(numReplaced)
-        // Now the fruits array is ['apple', 'orange']
-        // With { $pop: { fruits: -1 } }, it would have been ['orange', 'pear']
-      })
-
-      this.$db.findOne({ table: 'hostData' }, function(err, docs) {
-        console.log('hostData', docs)
-      })
+      // // 查询所有数据
+      // this.$db.find({}, function(err, docs) {
+      //   console.log(docs)
+      // })
+    },
+    watch: {
+      currentScene: function(val) {
+        var preData = []
+        val.hostData.forEach(row => {
+          row = row.ip + ' ' + row.domain + '     // ' + row.note
+          preData.push(row)
+        })
+        this.preData = preData.join('\n')
+      }
     }
   }
 </script>
@@ -205,12 +261,14 @@
   .demo-color-box {
     /* border-radius: 4px; */
     padding: 20px;
-    margin: 5px 0;
-    height: 54px;
+    margin: 8px 0;
+    height: 36px;
     box-sizing: border-box;
     color: #fff;
-    font-size: 14px;
+    line-height: 0px;
+    font-size: 16px;
     position: relative;
+    cursor: pointer;
   }
   .arrow {
     /* width: 13px; */
@@ -219,19 +277,29 @@
     top: 0px;
     right: -14px;
     z-index: 91999;
-    border-top: 27px solid transparent;
+    border-top: 19px solid transparent;
     border-right: 13px solid #fff;
-    border-bottom: 27px solid transparent;
+    border-bottom: 19px solid transparent;
+    /* box-shadow: 2px 0 5px #ddd; */
   }
   .bg-success {
     background: #67c23a;
   }
   .preview {
+    padding: 10px;
+    margin: 10px auto;
     display: block;
-    width: 100%;
+    width: 95%;
     height: 500px;
     font-size: 15px;
     background: #eee;
     border-radius: 5px;
+
+    cursor: auto;
+  }
+  .current {
+    line-height: 2px;
+    border-top: #333 solid 1px;
+    border-bottom: #333 solid 1px;
   }
 </style>
