@@ -45,11 +45,11 @@ export default new Router({
       name: 'test',
       component: require('@/views/Test').default
     },
-    {
-      path: '/tttt',
-      name: 'tttt',
-      component: require('@/views/tttt').default
-    },
+    // {
+    //   path: '/tttt',
+    //   name: 'tttt',
+    //   component: require('@/views/tttt').default
+    // },
     {
       path: '*',
       redirect: '/'
