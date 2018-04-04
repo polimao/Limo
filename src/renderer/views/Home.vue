@@ -26,9 +26,9 @@
                 <router-link to='/code-run'>
                   <el-menu-item index="1-2">Code Run</el-menu-item>
                 </router-link>
-                <router-link to='/help'>
+<!--                 <router-link to='/help'>
                   <el-menu-item index="1-2">Help</el-menu-item>
-                </router-link>
+                </router-link> -->
                 <router-link to='/test'>
                   <el-menu-item index="1-2">test</el-menu-item>
                 </router-link>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation'
+  import SystemInformation from './LandingPage/Menu'
 
   export default {
     data() {

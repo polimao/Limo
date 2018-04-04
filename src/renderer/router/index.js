@@ -21,19 +21,14 @@ export default new Router({
       component: require('@/views/FileCompare').default
     },
     {
-      path: '/host-editer',
-      name: 'host-editer',
-      component: require('@/views/HostEditer').default
-    },
-    {
       path: '/host-manager',
       name: 'host-manager',
       component: require('@/views/HostManager').default
     },
     {
-      path: '/code-run',
-      name: 'code-run',
-      component: require('@/views/CodeRun').default
+      path: '/php-runner',
+      name: 'php-runner',
+      component: require('@/views/PHPRunner').default
     },
     {
       path: '/code-mirror',
@@ -45,11 +40,6 @@ export default new Router({
       name: 'test',
       component: require('@/views/Test').default
     },
-    // {
-    //   path: '/tttt',
-    //   name: 'tttt',
-    //   component: require('@/views/tttt').default
-    // },
     {
       path: '*',
       redirect: '/'

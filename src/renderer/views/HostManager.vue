@@ -13,6 +13,7 @@
         </div>
       </el-aside>
       <el-main>
+        
         <h3>
           情景名称：{{currentScene.name}}</h3>
         <hr/>
@@ -65,6 +66,7 @@
 
 <script>
   // import path from 'path'
+
   // import fs from 'fs'
   export default {
     data() {

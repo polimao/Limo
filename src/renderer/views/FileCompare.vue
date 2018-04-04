@@ -57,6 +57,8 @@
         </tr>
       </table>
     </el-row>
+
+    <menu-navigation></menu-navigation>
   </div>
 </template>
 
@@ -198,6 +200,8 @@
 <script>
   var diffCompare = require('../components/DiffCompare')
 
+  import MenuNavigation from './LandingPage/Menu'
+
   export default {
     data() {
       const item = {
@@ -229,6 +233,8 @@
         }
       }
     },
+    name: 'landing-page',
+    components: { MenuNavigation },
     methods: {
       compare() {
         console.log("comparing 'foo' and 'bar'")
