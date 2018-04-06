@@ -1,11 +1,10 @@
 <template>
-
   <main>
     <el-container>
       <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color,'height' : clientHeight}">
 
         <div class="demo-color-box">
-          <router-link to="/home">home</router-link>
+
         </div>
         <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="v in scenes" @click="currentScene = v">
           {{ v.name}}

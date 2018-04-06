@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="wrapper">
     <el-row>
       <el-col :span="12">
         <el-container style="background-color: rgb(238, 241, 246)">
@@ -23,11 +23,8 @@
     </el-row>
     <el-row>
       <el-header class="tool-bar angled-135">
-        <i class="el-icon-caret-right" @click="triggerViewStyle('abreast')">左右并排</i>
-        <i class="el-icon-caret-bottom" @click="triggerViewStyle('sidebyside')">上下对比</i>
-        <router-link to="/home">
-          <i class="el-icon-menu"> Home</i>
-        </router-link>
+        <el-button size="mini" @click="triggerViewStyle('abreast')">左右并排</el-button>
+        <el-button size=mini @click="triggerViewStyle('sidebyside')">上下对比</el-button>
 
       </el-header>
 
@@ -205,9 +202,8 @@
 </style>
 
 <script>
-  var diffCompare = require('../components/DiffCompare')
-
   import MenuNavigation from './LandingPage/Menu'
+  import diffCompare from '../components/DiffCompare'
 
   export default {
     data() {
