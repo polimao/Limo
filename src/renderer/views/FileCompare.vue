@@ -57,8 +57,9 @@
         </tr>
       </table>
     </el-row>
-
-    <menu-navigation></menu-navigation>
+    <div id="menu-navigation">
+      <menu-navigation></menu-navigation>
+    </div>
   </div>
 </template>
 
@@ -194,6 +195,12 @@
       color-stop(0.75, transparent),
       to(transparent)
     );
+  }
+
+  #menu-navigation {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
   }
 </style>
 

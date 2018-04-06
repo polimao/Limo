@@ -129,5 +129,5 @@ let template = [
   }
 ]
 // 注册菜单
-Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+// Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 // ---------------------------------------------------------------------------------------------------

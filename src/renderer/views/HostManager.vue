@@ -13,7 +13,7 @@
         </div>
       </el-aside>
       <el-main>
-        
+
         <h3>
           情景名称：{{currentScene.name}}</h3>
         <hr/>
@@ -59,7 +59,11 @@
         </textarea>
 
       </el-main>
+      <div id="menu-navigation">
+        <menu-navigation></menu-navigation>
+      </div>
     </el-container>
+
   </main>
 </template>
 
@@ -68,6 +72,8 @@
   // import path from 'path'
 
   // import fs from 'fs'
+
+  import MenuNavigation from './LandingPage/Menu'
   export default {
     data() {
       return {
@@ -129,6 +135,8 @@
         clientHeight: '600px'
       }
     },
+    name: 'landing-page',
+    components: { MenuNavigation },
     methods: {
       handleCurrentChange(row, event, column) {
         console.log(row, event, column, event.currentTarget)
@@ -292,5 +300,11 @@
     line-height: 2px;
     border-top: #333 solid 1px;
     border-bottom: #333 solid 1px;
+  }
+
+  #menu-navigation {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
   }
 </style>
