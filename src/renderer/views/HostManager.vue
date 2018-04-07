@@ -151,14 +151,16 @@
         this.saveHost()
       },
       handleCurrentChange(row, event, column) {
-        console.log(row, event, column, event.currentTarget)
+        // console.log(row, event, column, event.currentTarget)
       },
       handleEdit(index, row) {
         this.saveHost()
         console.log(index, row)
       },
       handleDelete(index, row) {
-        console.log(index, row)
+        console.log('delete', index, row)
+        this.currentScene.hostData.pop(index)
+        this.saveHost()
       },
       addOne() {
         this.currentScene.hostData.push({
@@ -166,8 +168,10 @@
           domain: '',
           note: ''
         })
-        // console.log(this.$refs)
-        // document.getElementById('text').click()
+        let index = this.currentScene.hostData.length - 1
+        document.getElementsByClassName('el-table__row')[index].click()
+        console.log('selected', index)
+        // .click()
         this.saveHost()
       },
       saveHost() {
