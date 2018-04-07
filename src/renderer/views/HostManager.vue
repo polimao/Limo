@@ -1,7 +1,7 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color,'height' : clientHeight}">
+      <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color,'height' : '100vh'}">
 
         <div class="demo-color-box">
 
@@ -14,11 +14,14 @@
       <el-main>
 
         <h3>
-          情景名称：{{currentScene.name}}</h3>
+          情景名称：{{currentScene.name}}
+          <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
+        </h3>
         <hr/>
         <h3>
           配色：
-          <el-color-picker v-model="currentScene.color" size="mini" :predefine="predefineColors">
+          <el-color-picker v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
+
           </el-color-picker>
         </h3>
         <hr/>
@@ -77,9 +80,9 @@
     data() {
       return {
         currentScene: {
-          name: '通用',
-          color: 'red',
-          roleName: 'common',
+          name: '',
+          color: '',
+          roleName: '',
           hostData: [
             // {
             //   ip: '172.0.0.1',
@@ -91,7 +94,7 @@
         scenes: [
           {
             name: '通用',
-            color: '#5484B4',
+            color: '',
             roleName: 'common',
             hostData: [
               // {
@@ -130,13 +133,20 @@
           '#c71585'
         ],
         editerPath: '/etc/hosts',
-        preData: '',
-        clientHeight: '600px'
+        preData: ''
       }
     },
     name: 'landing-page',
     components: { MenuNavigation },
     methods: {
+      changeColor(val) {
+        console.log('---' + val)
+        this.saveHost()
+      },
+      changeName(val) {
+        console.log('---' + val)
+        this.saveHost()
+      },
       handleCurrentChange(row, event, column) {
         console.log(row, event, column, event.currentTarget)
       },
@@ -149,6 +159,7 @@
       },
       saveHost() {
         const that = this
+
         this.$db.update(
           { table: 'hostData' },
           {
@@ -183,15 +194,6 @@
         this.$db.find({}, function(err, docs) {
           console.log(err, docs)
         })
-      },
-      getClientHeight() {
-        this.clientHeight = `${document.documentElement.clientHeight}px`
-        const that = this
-        // 然后监听window的resize事件．在浏览器窗口变化时再设置下背景图高度．
-
-        window.onresize = function() {
-          that.clientHeight = `${document.documentElement.clientHeight}px`
-        }
       }
     },
     mounted() {
@@ -212,11 +214,11 @@
       // this.$db.find({}, function(err, docs) {
       //   console.log(docs)
       // })
-
-      this.getClientHeight()
     },
     watch: {
       currentScene: function(val) {
+        console.log(' 数据有变更')
+
         var preData = []
         val.hostData.forEach(function(row) {
           var rowStr = row.ip + ' ' + row.domain + '     // ' + row.note
