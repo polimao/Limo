@@ -56,6 +56,9 @@
             </template>
           </el-table-column>
         </el-table>
+        <el-button size=mini @click="addOne">
+          <i class="el-icon-plus"></i>
+        </el-button>
         <!-- {{clientHeight}} -->
         <textarea disabled class="preview">{{ preData }}
         </textarea>
@@ -157,6 +160,16 @@
       handleDelete(index, row) {
         console.log(index, row)
       },
+      addOne() {
+        this.currentScene.hostData.push({
+          ip: '',
+          domain: '',
+          note: ''
+        })
+        // console.log(this.$refs)
+        // document.getElementById('text').click()
+        this.saveHost()
+      },
       saveHost() {
         const that = this
 
@@ -221,7 +234,7 @@
 
         var preData = []
         val.hostData.forEach(function(row) {
-          var rowStr = row.ip + ' ' + row.domain + '     // ' + row.note
+          var rowStr = row.ip + ' ' + row.domain + '     # ' + row.note
           preData.push(rowStr)
         })
         this.preData = preData.join('\n')
