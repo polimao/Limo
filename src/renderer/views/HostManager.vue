@@ -28,7 +28,7 @@
 
         <h3>规则：</h3>
 
-        <el-table :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
+        <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
           <el-table-column label="IP" width="180">
             <template scope="scope">
               <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
@@ -49,17 +49,17 @@
           </el-table-column>
           <el-table-column label="操作">
             <template scope="scope">
-              <!-- <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
                 <i class='el-icon-delete'></i>
               </el-button>
             </template>
           </el-table-column>
         </el-table>
+
         <el-button size=mini @click="addOne">
           <i class="el-icon-plus"></i>
         </el-button>
-        <!-- {{clientHeight}} -->
+
         <textarea disabled class="preview">{{ preData }}
         </textarea>
 
@@ -168,10 +168,8 @@
           domain: '',
           note: ''
         })
-        let index = this.currentScene.hostData.length - 1
-        document.getElementsByClassName('el-table__row')[index].click()
-        console.log('selected', index)
-        // .click()
+        this.setCurrent()
+
         this.saveHost()
       },
       saveHost() {
@@ -211,6 +209,16 @@
         this.$db.find({}, function(err, docs) {
           console.log(err, docs)
         })
+      },
+      setCurrent(row) {
+        var t;
+        var that = this
+        clearTimeout(t)
+        t = setTimeout(function (){
+          let index = that.currentScene.hostData.length - 1
+          let row = that.currentScene.hostData[index]
+          that.$refs.singleTable.setCurrentRow(row);
+        }, 300);
       }
     },
     mounted() {

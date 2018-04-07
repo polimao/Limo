@@ -17,8 +17,8 @@
     <!-- <router-link to='/help'>
       <el-button size="mini" type="danger">Help</el-button>
     </router-link> -->
-    <router-link to='/test'>
-      <!-- <el-button size="mini" type="danger"></el-button>  -->
+    <router-link to='/test2'>
+      <el-button size="mini" type="danger">test</el-button> 
     </router-link>
   </main>
 </template>

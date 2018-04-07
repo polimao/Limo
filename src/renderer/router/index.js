@@ -36,9 +36,9 @@ export default new Router({
       component: require('@/views/CodeMirror').default
     },
     {
-      path: '/test',
-      name: 'test',
-      component: require('@/views/Test').default
+      path: '/test2',
+      name: 'test2',
+      component: require('@/views/test2').default
     },
     {
       path: '*',
