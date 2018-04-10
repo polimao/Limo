@@ -60,8 +60,10 @@
           <i class="el-icon-plus"></i>
         </el-button>
 
-        <textarea disabled class="preview">{{ preData }}
-        </textarea>
+        <pre class="preview">
+          <div v-for="row in preview.hostData">
+          {{ row.ip }} {{ row.domain }}<span v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>#{{ row.note }}</div>
+        </pre>
 
       </el-main>
       <div id="menu-navigation">
@@ -136,7 +138,7 @@
           '#c71585'
         ],
         editerPath: '/etc/hosts',
-        preData: ''
+        preview: {}
       }
     },
     name: 'landing-page',
@@ -243,13 +245,17 @@
     watch: {
       currentScene: function(val) {
         console.log(' 数据有变更')
-
-        var preData = []
+        this.preview.longest = []
+        var that = this
         val.hostData.forEach(function(row) {
-          var rowStr = row.ip + ' ' + row.domain + '     # ' + row.note
-          preData.push(rowStr)
+          let length = row.ip.length + row.domain.length + 1
+          row.longest = length
+          if (that.preview.longest.length < length) {
+            that.preview.longest = new Array(1 + length)
+          }
         })
-        this.preData = preData.join('\n')
+
+        this.preview.hostData = val.hostData
       }
     }
   }
