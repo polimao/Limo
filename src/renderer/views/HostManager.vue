@@ -1,14 +1,14 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 1px solid'+ currentScene.color,'box-shadow' :'2px 0px 5px '+ currentScene.color,'height' : '100vh'}">
+      <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
 
         <div class="demo-color-box">
 
         </div>
         <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="v in scenes" @click="currentScene = v">
           {{ v.name}}
-          <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div>
+          <!-- <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div> -->
         </div>
       </el-aside>
       <el-main>
@@ -29,7 +29,7 @@
         <h3>规则：</h3>
 
         <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
-          <el-table-column label="IP" width="180">
+          <el-table-column label="IP" width="180" class="test">
             <template scope="scope">
               <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
               <span>{{scope.row.ip}}</span>
@@ -56,13 +56,13 @@
           </el-table-column>
         </el-table>
 
-        <el-button size=mini @click="addOne">
+        <el-button size="mini" @click="addOne">
           <i class="el-icon-plus"></i>
         </el-button>
 
         <pre class="preview">
-          <div v-for="row in preview.hostData">
-          {{ row.ip }} {{ row.domain }}<span v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>#{{ row.note }}</div>
+          <span v-for="row in preview.hostData">
+          {{ row.ip }} {{ row.domain }}<span v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>#{{ row.note }}</span>
         </pre>
 
       </el-main>
@@ -195,13 +195,13 @@
           }
         )
 
-        this.$db.findOne({ table: 'hostData' }, function(err, docs) {
-          console.log(' updated hostData', err, docs)
-          if (docs) {
-            that.scenes = docs.scenes
-            that.currentScene = that.scenes[0]
-          }
-        })
+        // this.$db.findOne({ table: 'hostData' }, function(err, docs) {
+        //   console.log(' updated hostData', err, docs)
+        //   if (docs) {
+        // that.scenes = docs.scenes
+        // that.currentScene = that.scenes[0]
+        //   }
+        // })
 
         // fs.writeFile(this.editerPath, this.hostData.toString(), function(err) {
         //   if (!err) console.log('写入成功！')
@@ -224,6 +224,7 @@
       }
     },
     mounted() {
+      console.log('cookies', this.$cookies)
       // 删除所有数据
       // this.$db.remove({}, { multi: true }, function(err, numRemoved) {})
 
@@ -278,6 +279,10 @@
     overflow: auto;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
+  }
+  table th,
+  table td {
+    padding: 6px 0px !important;
   }
   .tb-edit .el-input {
     display: none;

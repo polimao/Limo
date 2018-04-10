@@ -25,6 +25,11 @@ import VueCodemirror from 'vue-codemirror'
 Vue.use(VueCodemirror)
 // ================ 02-08
 
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+
+// ================ 04-10
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI)
