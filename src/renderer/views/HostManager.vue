@@ -159,7 +159,7 @@
       },
       handleDelete(index, row) {
         console.log('delete', index, row)
-        this.currentScene.hostData.pop(index)
+        this.currentScene.hostData.splice(index, 1)
         this.saveHost()
       },
       addOne() {
@@ -211,14 +211,14 @@
         })
       },
       setCurrent(row) {
-        var t;
+        var t
         var that = this
         clearTimeout(t)
-        t = setTimeout(function (){
+        t = setTimeout(function() {
           let index = that.currentScene.hostData.length - 1
           let row = that.currentScene.hostData[index]
-          that.$refs.singleTable.setCurrentRow(row);
-        }, 300);
+          that.$refs.singleTable.setCurrentRow(row)
+        }, 300)
       }
     },
     mounted() {
