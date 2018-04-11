@@ -1,7 +1,7 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="260px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
+      <el-aside width="180px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
 
         <div class="demo-color-box">
 
@@ -15,16 +15,16 @@
 
         <h3>
           情景名称：{{currentScene.name}}
-          <el-input v-model="currentScene.name" @change="changeName"></el-input>
+          <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
         </h3>
-        <hr/>
+        <!-- <hr/> -->
         <h3>
           配色：
           <el-color-picker v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
           </el-color-picker>
         </h3>
-        <hr/>
+        <!-- <hr/> -->
 
         <h3>规则：</h3>
 
@@ -49,6 +49,9 @@
           </el-table-column>
           <el-table-column label="操作">
             <template scope="scope">
+              <el-button size="mini" type="success" @click="buttonEdit(scope.$index, scope.row)">
+                <i class='el-icon-close'></i>
+              </el-button>
               <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
                 <i class='el-icon-delete'></i>
               </el-button>
@@ -153,11 +156,17 @@
         this.saveHost()
       },
       handleCurrentChange(row, event, column) {
-        // console.log(row, event, column, event.currentTarget)
+        // console.log(
+        //   'handleCurrentChange',
+        //   row,
+        //   event,
+        //   column,
+        //   event.currentTarget
+        // )
       },
       handleEdit(index, row) {
         this.saveHost()
-        console.log(index, row)
+        console.log('---', index, row.domain)
       },
       handleDelete(index, row) {
         console.log('delete', index, row)
@@ -177,6 +186,15 @@
         this.setCurrent()
 
         this.saveHost()
+      },
+      buttonEdit() {
+        console.log('buttonEdit')
+        var t
+        var that = this
+        clearTimeout(t)
+        t = setTimeout(function() {
+          that.$refs.singleTable.setCurrentRow({})
+        }, 50)
       },
       saveHost() {
         const that = this
@@ -216,7 +234,7 @@
           console.log(err, docs)
         })
       },
-      setCurrent(row) {
+      setCurrent() {
         var t
         var that = this
         clearTimeout(t)
