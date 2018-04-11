@@ -60,10 +60,13 @@
           </el-button>
         </div>
 
-        <pre class="preview">
-          <span v-for="row in preview.hostData">
-          {{ row.ip }} {{ row.domain }}<span v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>#{{ row.note }}</span>
-        </pre>
+        <p class="preview">
+          <span v-for="row in preview.hostData">{{ row.ip }} {{ row.domain }}
+            <span class="space" v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>
+            #{{ row.note }}</br>
+          </span>
+
+        </p>
 
       </el-main>
       <div id="menu-navigation">
@@ -316,7 +319,7 @@
     height: 27px !important;
     line-height: 27px !important;
   }
-  e .el-input--small input.el-input__inner {
+  .el-input--small input.el-input__inner {
     padding: 0 8px;
   }
   .tb-edit .el-input {
@@ -382,15 +385,25 @@
     background: #67c23a;
   }
   .preview {
-    padding: 10px;
-    margin: 10px auto;
+    font-family: Fira Code, Tahoma, Geneva, Verdana, sans-serif;
+    padding: 8px;
+    margin: 8px auto;
     display: block;
     width: 95%;
     height: 300px;
     font-size: 15px;
     background: #eee;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: not-allowed;
+  }
+  p.preview span {
+    padding: 0px;
+    margin: 0px;
+  }
+  p.preview span.space {
+    /* display: block; */
+    /* background: indianred; */
+    /* padding-left: 1em; */
   }
   .current {
     line-height: 2px;
