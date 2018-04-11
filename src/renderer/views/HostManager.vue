@@ -387,9 +387,9 @@
   .preview {
     font-family: Fira Code, Tahoma, Geneva, Verdana, sans-serif;
     padding: 8px;
-    margin: 8px auto;
+    margin: 50px auto;
     display: block;
-    width: 95%;
+    /* width: 100%; */
     height: 300px;
     font-size: 15px;
     background: #eee;
