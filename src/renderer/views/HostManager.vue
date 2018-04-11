@@ -14,28 +14,25 @@
       <el-main>
 
         <h3>
-          情景名称：{{currentScene.name}}
+          情景：{{currentScene.name}}
           <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
-        </h3>
-        <!-- <hr/> -->
-        <h3>
-          配色：
-          <el-color-picker v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
+          <el-color-picker style="float:right;" v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
           </el-color-picker>
         </h3>
         <!-- <hr/> -->
+        <h3>
 
-        <h3>规则：</h3>
+        </h3>
 
         <el-table ref="singleTable" stripe :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
-          <el-table-column label="IP" width="180" class="test">
+          <el-table-column sortable label="IP" width="180" class="test">
             <template scope="scope">
               <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
               <span>{{scope.row.ip}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="域名" width="180">
+          <el-table-column sortable label="域名" width="180">
             <template scope="scope">
               <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
               <span>{{scope.row.domain}}</span>
@@ -49,10 +46,9 @@
           </el-table-column>
           <el-table-column label="操作">
             <template scope="scope">
+              <i class='el-icon-circle-check-outline success-icon' @click="buttonEdit(scope.$index, scope.row)"></i>&nbsp;&nbsp;&nbsp;&nbsp;
 
-              <i class='el-icon-circle-check' @click="buttonEdit(scope.$index, scope.row)"></i>
-
-              <i type="danger" class='el-icon-circle-close' @click="handleDelete(scope.$index, scope.row)"></i>
+              <i class='el-icon-delete delete-icon' @click="handleDelete(scope.$index, scope.row)"></i>
 
             </template>
           </el-table-column>
@@ -311,6 +307,16 @@
   table td {
     padding: 6px 0px !important;
   }
+  .tb-edit .current-row td {
+    padding: 4px 0px !important;
+  }
+  .el-input--small input {
+    height: 27px !important;
+    line-height: 27px !important;
+  }
+  .el-input--small input.el-input__inner {
+    padding: 0 8px;
+  }
   .tb-edit .el-input {
     display: none;
   }
@@ -322,6 +328,24 @@
   }
   .el-aside {
     overflow: inherit;
+  }
+  .tb-edit .success-icon {
+    display: none;
+  }
+  .tb-edit .current-row .success-icon {
+    display: inline;
+    cursor: pointer;
+  }
+
+  .tb-edit .delete-icon {
+    color: brown;
+    padding-left: 14px;
+    cursor: pointer;
+  }
+  .tb-edit .current-row .delete-icon {
+    display: inline;
+    padding-left: 0px;
+    cursor: pointer;
   }
   .demo-color-box {
     padding: 20px;
