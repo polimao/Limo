@@ -319,8 +319,8 @@
     padding: 6px 0px !important;
   }
   table tr.disable {
-    background-size: 5px 5px;
-    background-color: rgb(185, 157, 157);
+    background-size: 10px 10px;
+    background-color: rgb(253, 239, 239);
     background-image: -webkit-gradient(
       linear,
       0 0,
@@ -370,6 +370,10 @@
     border-radius: 3px;
     transition: 0.2s;
   }
+  /* #hostTable:hover {
+                                        box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+                                          0 2px 4px 0 rgba(232, 237, 250, 0.5);
+                                      } */
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;
