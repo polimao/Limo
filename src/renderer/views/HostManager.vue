@@ -24,39 +24,41 @@
         <h3>
 
         </h3>
+        <div id="hostTable">
+          <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
+            <el-table-column type="index" width="36">
+            </el-table-column>
+            <el-table-column sortable label="IP" fit width="120" class="test">
+              <template scope="scope">
+                <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" fit @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <span>{{scope.row.ip}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column sortable label="域名" width="280">
+              <template scope="scope">
+                <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <span>{{scope.row.domain}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="note" label="备注">
+              <template scope="scope">
+                <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <span>{{scope.row.note}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作">
+              <template scope="scope">
+                <i class='el-icon-circle-check-outline success-icon' @click="buttonEdit(scope.$index, scope.row)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <el-table ref="singleTable" stripe :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
-          <el-table-column sortable label="IP" width="180" class="test">
-            <template scope="scope">
-              <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
-              <span>{{scope.row.ip}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column sortable label="域名" width="180">
-            <template scope="scope">
-              <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
-              <span>{{scope.row.domain}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="note" label="备注">
-            <template scope="scope">
-              <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
-              <span>{{scope.row.note}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作">
-            <template scope="scope">
-              <i class='el-icon-circle-check-outline success-icon' @click="buttonEdit(scope.$index, scope.row)"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class='el-icon-delete delete-icon' @click="handleDelete(scope.$index, scope.row)"></i>
 
-              <i class='el-icon-delete delete-icon' @click="handleDelete(scope.$index, scope.row)"></i>
-
-            </template>
-          </el-table-column>
-        </el-table>
-
-        <el-button size="mini" @click="addOne">
-          <i class="el-icon-plus"></i>
-        </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-button size="mini" style="margin-top:8px;" @click="addOne">
+            <i class="el-icon-plus"></i>
+          </el-button>
+        </div>
 
         <pre class="preview">
           <span v-for="row in preview.hostData">
@@ -314,7 +316,7 @@
     height: 27px !important;
     line-height: 27px !important;
   }
-  .el-input--small input.el-input__inner {
+  e .el-input--small input.el-input__inner {
     padding: 0 8px;
   }
   .tb-edit .el-input {
@@ -336,7 +338,13 @@
     display: inline;
     cursor: pointer;
   }
-
+  #hostTable {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ebebeb;
+    border-radius: 3px;
+    transition: 0.2s;
+  }
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;
