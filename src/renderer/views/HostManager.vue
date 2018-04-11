@@ -28,7 +28,7 @@
 
         <h3>规则：</h3>
 
-        <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
+        <el-table ref="singleTable" stripe :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
           <el-table-column label="IP" width="180" class="test">
             <template scope="scope">
               <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
@@ -49,12 +49,11 @@
           </el-table-column>
           <el-table-column label="操作">
             <template scope="scope">
-              <el-button size="mini" type="success" @click="buttonEdit(scope.$index, scope.row)">
-                <i class='el-icon-close'></i>
-              </el-button>
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
-                <i class='el-icon-delete'></i>
-              </el-button>
+
+              <i class='el-icon-circle-check' @click="buttonEdit(scope.$index, scope.row)"></i>
+
+              <i type="danger" class='el-icon-circle-close' @click="handleDelete(scope.$index, scope.row)"></i>
+
             </template>
           </el-table-column>
         </el-table>
