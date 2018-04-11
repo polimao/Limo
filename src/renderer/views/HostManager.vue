@@ -25,7 +25,7 @@
 
         </h3>
         <div id="hostTable">
-          <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
+          <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="disableClassName">
             <el-table-column type="index" width="36">
             </el-table-column>
             <el-table-column sortable label="IP" fit width="120" class="test">
@@ -243,6 +243,12 @@
           let row = that.currentScene.hostData[index]
           that.$refs.singleTable.setCurrentRow(row)
         }, 300)
+      },
+      disableClassName({ row, rowIndex }) {
+        if (row.ip === '' || row.domain === '') {
+          return 'disable'
+        }
+        return ''
       }
     },
     mounted() {
@@ -311,6 +317,22 @@
   table th,
   table td {
     padding: 6px 0px !important;
+  }
+  table tr.disable {
+    background-size: 5px 5px;
+    background-color: rgb(185, 157, 157);
+    background-image: -webkit-gradient(
+      linear,
+      0 0,
+      100% 100%,
+      color-stop(0.25, rgba(255, 255, 255, 1)),
+      color-stop(0.25, transparent),
+      color-stop(0.5, transparent),
+      color-stop(0.5, rgba(255, 255, 255, 1)),
+      color-stop(0.75, rgba(255, 255, 255, 1)),
+      color-stop(0.75, transparent),
+      to(transparent)
+    );
   }
   .tb-edit .current-row td {
     padding: 4px 0px !important;
