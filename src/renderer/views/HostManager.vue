@@ -6,7 +6,7 @@
         <div class="demo-color-box">
 
         </div>
-        <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="v in scenes" @click="currentScene = v">
+        <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
           {{ v.name}}
           <!-- <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div> -->
         </div>
@@ -15,7 +15,7 @@
 
         <h3>
           情景名称：{{currentScene.name}}
-          <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
+          <el-input v-model="currentScene.name" @change="changeName"></el-input>
         </h3>
         <hr/>
         <h3>
@@ -164,6 +164,10 @@
         this.currentScene.hostData.splice(index, 1)
         this.saveHost()
       },
+      switchScene(scene, index) {
+        this.$cookies.set('switchSceneIndex', index)
+        this.currentScene = scene
+      },
       addOne() {
         this.currentScene.hostData.push({
           ip: '',
@@ -224,7 +228,7 @@
       }
     },
     mounted() {
-      console.log('cookies', this.$cookies)
+      // console.log('cookies', this.$cookies)
       // 删除所有数据
       // this.$db.remove({}, { multi: true }, function(err, numRemoved) {})
 
@@ -234,7 +238,13 @@
         console.log(' get hostData', error, docs)
         if (docs) {
           that.scenes = docs.scenes
-          that.currentScene = that.scenes[0]
+          let index = that.$cookies.get('switchSceneIndex')
+          console.log('index', index)
+          if (!index) {
+            index = 0
+          }
+
+          that.currentScene = that.scenes[index]
         }
       })
 
