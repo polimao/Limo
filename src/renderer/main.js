@@ -25,6 +25,11 @@ import VueCodemirror from 'vue-codemirror'
 Vue.use(VueCodemirror)
 // ================ 02-08
 
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+
+// ================ 04-10
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI)
@@ -33,14 +38,14 @@ Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.prototype.$db = db
-db.insert([
-  {
-    a: 5
-  },
-  {
-    a: 42
-  }
-])
+// db.insert([
+//   {
+//     a: 5
+//   },
+//   {
+//     a: 42
+//   }
+// ])
 /* eslint-disable no-new */
 new Vue({
   components: {

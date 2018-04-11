@@ -6,7 +6,7 @@
 
         <div>
 
-          <el-menu default-active="1-1" class="el-menu-vertical-demo" v-model="isCollapse" :collapse="isCollapse">
+          <!-- <el-menu default-active="1-1" class="el-menu-vertical-demo" v-model="isCollapse" :collapse="isCollapse">
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-menu"></i>
@@ -17,17 +17,14 @@
                 <router-link to='/file-compare'>
                   <el-menu-item index="1-1">File Compare</el-menu-item>
                 </router-link>
-                <router-link to='/host-editer'>
-                  <el-menu-item index="1-2">Host Editer</el-menu-item>
+                <router-link to='/host-manager'>
+                  <el-menu-item index="1-2">Host Manager</el-menu-item>
                 </router-link>
                 <router-link to='/code-mirror'>
                   <el-menu-item index="1-2">Code Mirror</el-menu-item>
                 </router-link>
                 <router-link to='/code-run'>
                   <el-menu-item index="1-2">Code Run</el-menu-item>
-                </router-link>
-                <router-link to='/help'>
-                  <el-menu-item index="1-2">Help</el-menu-item>
                 </router-link>
                 <router-link to='/test'>
                   <el-menu-item index="1-2">test</el-menu-item>
@@ -36,7 +33,7 @@
 
             </el-submenu>
 
-          </el-menu>
+          </el-menu> -->
         </div>
       </div>
       <div class="right-side">
@@ -52,7 +49,7 @@
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation'
+  import SystemInformation from './LandingPage/Menu'
 
   export default {
     data() {
@@ -93,7 +90,7 @@
       rgba(229, 229, 229, 0.9) 100%
     );
     height: 100vh;
-    padding: 60px 80px;
+    padding: 20px 30px;
     width: 100vw;
   }
 
