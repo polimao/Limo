@@ -1,7 +1,7 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="180px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
+      <el-aside width="150px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
 
         <div class="demo-color-box">
 
@@ -60,13 +60,19 @@
           </el-button>
         </div>
 
-        <p class="preview">
+        <p class="preview" :class="{'preview-show':previewShow}">
           <span v-for="row in preview.hostData">{{ row.ip }} {{ row.domain }}
             <span class="space" v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>
             #{{ row.note }}</br>
           </span>
 
         </p>
+        <div id="blockControl" @click="previewShow = !previewShow">
+          <i class="el-icon-caret-bottom">
+            <span>&nbsp;{{ previewShow?'隐藏':'显示' }}源码</span>
+          </i>
+
+        </div>
 
       </el-main>
       <div id="menu-navigation">
@@ -141,7 +147,8 @@
           '#c71585'
         ],
         editerPath: '/etc/hosts',
-        preview: {}
+        preview: {},
+        previewShow: false
       }
     },
     name: 'landing-page',
@@ -367,13 +374,14 @@
     padding: 10px;
     margin-top: 10px;
     border: 1px solid #ebebeb;
-    border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
     transition: 0.2s;
   }
   /* #hostTable:hover {
-                                        box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
-                                          0 2px 4px 0 rgba(232, 237, 250, 0.5);
-                                      } */
+                                                                                                                            box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+                                                                                                                              0 2px 4px 0 rgba(232, 237, 250, 0.5);
+                                                                                                                          } */
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;
@@ -413,13 +421,16 @@
   .preview {
     font-family: Fira Code, Tahoma, Geneva, Verdana, sans-serif;
     padding: 8px;
-    margin: 50px auto;
-    display: block;
+    /* margin: 50px auto; */
+    display: none;
     /* width: 100%; */
-    height: 300px;
+    height: 0px;
     font-size: 15px;
-    background: #eee;
-    border-radius: 3px;
+    background: #fafafa;
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    /* border-radius: 3px; */
     cursor: not-allowed;
   }
   p.preview span {
@@ -441,5 +452,49 @@
     position: fixed;
     right: 10px;
     bottom: 10px;
+  }
+  .hovering {
+    transform: translateX(-40px);
+  }
+  #blockControl {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #409eff;
+    /* background: firebrick; */
+    text-align: center;
+    border: 1px solid #ebebeb;
+    border-top: none;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  #blockControl:hover {
+    color: #409eff;
+    background-color: #f9fafc;
+  }
+  #blockControl:hover i {
+    transform: translateX(-20px);
+  }
+  #blockControl:hover span {
+    display: inline;
+    /* transform: translateX(-40px); */
+  }
+  #blockControl i {
+    color: #409eff;
+    font-size: 16px;
+    line-height: 40px;
+    transition: 0.3s;
+  }
+  #blockControl span {
+    display: none;
+    transition: 0.3s;
+  }
+
+  .preview-show {
+    height: 300px;
+    transition: 0.3s;
+    display: block;
   }
 </style>
