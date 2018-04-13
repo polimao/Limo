@@ -31,19 +31,19 @@ require('./index')
 // const { app } = remote
 
 //   2018 03-06 注释
-// var menubar = require('menubar')
-
+var menubar = require('menubar')
+var opts = { dir: __dirname + '/../../dist/electron/' }
+var mb = menubar(opts)
 // var mb = menubar()
 
 // console.log('dev ----- ')
-// mb.on('ready', function ready() {
-//   console.log('--limao---')
-//   console.log(app.getAppPath())
-
-//   // Build default menu for text editing and devtools. (gone since electron 0.25.2)
-//   // var menu = Menu.buildFromTemplate(template)
-//   // Menu.setApplicationMenu(menu)
-// })
+mb.on('ready', function ready() {
+  // console.log('--limao---')
+  // console.log(app.getAppPath())
+  // Build default menu for text editing and devtools. (gone since electron 0.25.2)
+  // var menu = Menu.buildFromTemplate(template)
+  // Menu.setApplicationMenu(menu)
+})
 //   2018 03-06 注释
 
 import { Menu } from 'electron'
