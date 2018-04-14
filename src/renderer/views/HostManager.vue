@@ -237,9 +237,9 @@
         // })
 
         // 查询所有数据
-        this.$db.find({}, function(err, docs) {
-          console.log(err, docs)
-        })
+        // this.$db.find({}, function(err, docs) {
+        //   console.log(err, docs)
+        // })
       },
       setCurrent() {
         var t
@@ -379,9 +379,9 @@
     transition: 0.2s;
   }
   /* #hostTable:hover {
-                                                                                                                            box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
-                                                                                                                              0 2px 4px 0 rgba(232, 237, 250, 0.5);
-                                                                                                                          } */
+                                                                                                                              box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+                                                                                                                                0 2px 4px 0 rgba(232, 237, 250, 0.5);
+                                                                                                                            } */
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;

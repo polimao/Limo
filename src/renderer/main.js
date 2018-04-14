@@ -22,10 +22,11 @@ import 'codemirror/lib/codemirror.css'
 
 import VueCodemirror from 'vue-codemirror'
 
+import VueCookies from 'vue-cookies'
+
 Vue.use(VueCodemirror)
 // ================ 02-08
 
-import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 
 // ================ 04-10
