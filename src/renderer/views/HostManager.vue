@@ -108,7 +108,7 @@
         scenes: [
           {
             name: '通用',
-            color: '',
+            color: '#D3D3D3',
             roleName: 'common',
             hostData: [
               // {
@@ -120,31 +120,31 @@
           },
           {
             name: '情景一',
-            color: '#D8463F',
+            color: '#EF836C',
             roleName: 'scene1',
             hostData: []
           },
           {
             name: '情景二',
-            color: '#5DA150',
+            color: '#F7BD76',
             roleName: 'scene2',
             hostData: []
           },
           {
             name: '情景三',
-            color: '#F6D449',
+            color: '#F9EA8C',
             roleName: 'scene3',
             hostData: []
           }
         ],
         predefineColors: [
-          '#ff4500',
-          '#ff8c00',
-          '#ffd700',
-          '#90ee90',
-          '#00ced1',
-          '#1e90ff',
-          '#c71585'
+          '#EF836C',
+          '#F7BD76',
+          '#F9EA8C',
+          '#CAEA8C',
+          '#8BCBFB',
+          '#DAB0F4',
+          '#D3D3D3'
         ],
         editerPath: '/etc/hosts',
         preview: {},
@@ -379,9 +379,9 @@
     transition: 0.2s;
   }
   /* #hostTable:hover {
-                                                                                                                              box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
-                                                                                                                                0 2px 4px 0 rgba(232, 237, 250, 0.5);
-                                                                                                                            } */
+                                                                                                                                          box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+                                                                                                                                            0 2px 4px 0 rgba(232, 237, 250, 0.5);
+                                                                                                                                        } */
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;

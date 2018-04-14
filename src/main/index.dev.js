@@ -35,9 +35,9 @@ var menubar = require('menubar')
 var opts = {
   dir: __dirname + '/../menubar',
   width: 200,
-  height: 150,
-  alwaysOnTop: true,
-  showOnRightClick: true
+  height: 150
+  // alwaysOnTop: true
+  // showOnRightClick: true
 }
 var mb = menubar(opts)
 // var mb = menubar()
