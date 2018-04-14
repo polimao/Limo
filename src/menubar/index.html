@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../../node_modules/element-ui/lib/theme-chalk/index.css">
+</head>
+
+<style>
+  .scene-iterm {
+    padding-left: 10px;
+    line-height: 18px;
+    height: 18px;
+    font: 1em sans-serif;
+    font-size: 13px;
+    margin: 0px;
+  }
+
+  * {
+    padding: 0px;
+    margin: 0px;
+  }
+
+  body {
+    background: #fff;
+  }
+</style>
+
+<body>
+
+  <div id="app">
+    <template>
+      <div v-for="scene in hostData.scenes">
+        <p class="scene-iterm">{{scene.name}}</p>
+      </div>
+    </template>
+  </div>
+</body>
+<script>
+  var Vue = require('vue/dist/vue.js')
+  var Datastore = require('nedb')
+  var path = require('path')
+  var remote = require('electron').remote
+
+  Vue.prototype.$db = new Datastore({
+    autoload: true,
+    filename: path.join(remote.app.getPath('userData'), '/data.db')
+  })
+
+  Vue.use(require('element-ui'))
+
+  new Vue({
+    data: {
+      hostData: null
+    },
+    components: {
+      // App
+    },
+    mounted() {
+      var that = this
+      // // 查询所有数据
+      this.$db.findOne({
+        table: 'hostData'
+      }, function (err, docs) {
+        console.log(err, docs)
+        if (docs) {
+          that.hostData = docs
+        }
+      })
+    }
+  }).$mount('#app')
+</script>
+
+</html>

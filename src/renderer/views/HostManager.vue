@@ -1,7 +1,7 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="180px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
+      <el-aside width="150px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
 
         <div class="demo-color-box">
 
@@ -14,59 +14,65 @@
       <el-main>
 
         <h3>
-          情景名称：{{currentScene.name}}
+          情景：{{currentScene.name}}
           <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
-        </h3>
-        <!-- <hr/> -->
-        <h3>
-          配色：
-          <el-color-picker v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
+          <el-color-picker style="float:right;" v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
           </el-color-picker>
         </h3>
         <!-- <hr/> -->
+        <h3>
 
-        <h3>规则：</h3>
+        </h3>
+        <div id="hostTable">
+          <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="disableClassName">
+            <el-table-column type="index" width="36">
+            </el-table-column>
+            <el-table-column sortable label="IP" fit width="120" class="test">
+              <template scope="scope">
+                <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" fit @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <span>{{scope.row.ip}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column sortable label="域名" width="280">
+              <template scope="scope">
+                <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <span>{{scope.row.domain}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="note" label="备注">
+              <template scope="scope">
+                <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <span>{{scope.row.note}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作">
+              <template scope="scope">
+                <i class='el-icon-circle-check-outline success-icon' @click="buttonEdit(scope.$index, scope.row)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange">
-          <el-table-column label="IP" width="180" class="test">
-            <template scope="scope">
-              <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
-              <span>{{scope.row.ip}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="域名" width="180">
-            <template scope="scope">
-              <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
-              <span>{{scope.row.domain}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="note" label="备注">
-            <template scope="scope">
-              <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
-              <span>{{scope.row.note}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作">
-            <template scope="scope">
-              <el-button size="mini" type="success" @click="buttonEdit(scope.$index, scope.row)">
-                <i class='el-icon-close'></i>
-              </el-button>
-              <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
-                <i class='el-icon-delete'></i>
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+                <i class='el-icon-delete delete-icon' @click="handleDelete(scope.$index, scope.row)"></i>
 
-        <el-button size="mini" @click="addOne">
-          <i class="el-icon-plus"></i>
-        </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <el-button size="mini" style="margin-top:8px;" @click="addOne">
+            <i class="el-icon-plus"></i>
+          </el-button>
+        </div>
 
-        <pre class="preview">
-          <span v-for="row in preview.hostData">
-          {{ row.ip }} {{ row.domain }}<span v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>#{{ row.note }}</span>
-        </pre>
+        <p class="preview" :class="{'preview-show':previewShow}">
+          <span v-for="row in preview.hostData">{{ row.ip }} {{ row.domain }}
+            <span class="space" v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>
+            #{{ row.note }}</br>
+          </span>
+
+        </p>
+        <div id="blockControl" @click="previewShow = !previewShow">
+          <i class="el-icon-caret-bottom">
+            <span>&nbsp;{{ previewShow?'隐藏':'显示' }}源码</span>
+          </i>
+
+        </div>
 
       </el-main>
       <div id="menu-navigation">
@@ -102,7 +108,7 @@
         scenes: [
           {
             name: '通用',
-            color: '',
+            color: '#D3D3D3',
             roleName: 'common',
             hostData: [
               // {
@@ -114,34 +120,35 @@
           },
           {
             name: '情景一',
-            color: '#D8463F',
+            color: '#EF836C',
             roleName: 'scene1',
             hostData: []
           },
           {
             name: '情景二',
-            color: '#5DA150',
+            color: '#F7BD76',
             roleName: 'scene2',
             hostData: []
           },
           {
             name: '情景三',
-            color: '#F6D449',
+            color: '#F9EA8C',
             roleName: 'scene3',
             hostData: []
           }
         ],
         predefineColors: [
-          '#ff4500',
-          '#ff8c00',
-          '#ffd700',
-          '#90ee90',
-          '#00ced1',
-          '#1e90ff',
-          '#c71585'
+          '#EF836C',
+          '#F7BD76',
+          '#F9EA8C',
+          '#CAEA8C',
+          '#8BCBFB',
+          '#DAB0F4',
+          '#D3D3D3'
         ],
         editerPath: '/etc/hosts',
-        preview: {}
+        preview: {},
+        previewShow: false
       }
     },
     name: 'landing-page',
@@ -230,9 +237,9 @@
         // })
 
         // 查询所有数据
-        this.$db.find({}, function(err, docs) {
-          console.log(err, docs)
-        })
+        // this.$db.find({}, function(err, docs) {
+        //   console.log(err, docs)
+        // })
       },
       setCurrent() {
         var t
@@ -243,6 +250,12 @@
           let row = that.currentScene.hostData[index]
           that.$refs.singleTable.setCurrentRow(row)
         }, 300)
+      },
+      disableClassName({ row, rowIndex }) {
+        if (row.ip === '' || row.domain === '') {
+          return 'disable'
+        }
+        return ''
       }
     },
     mounted() {
@@ -312,6 +325,32 @@
   table td {
     padding: 6px 0px !important;
   }
+  table tr.disable {
+    background-size: 10px 10px;
+    background-color: rgb(253, 239, 239);
+    background-image: -webkit-gradient(
+      linear,
+      0 0,
+      100% 100%,
+      color-stop(0.25, rgba(255, 255, 255, 1)),
+      color-stop(0.25, transparent),
+      color-stop(0.5, transparent),
+      color-stop(0.5, rgba(255, 255, 255, 1)),
+      color-stop(0.75, rgba(255, 255, 255, 1)),
+      color-stop(0.75, transparent),
+      to(transparent)
+    );
+  }
+  .tb-edit .current-row td {
+    padding: 4px 0px !important;
+  }
+  .el-input--small input {
+    height: 27px !important;
+    line-height: 27px !important;
+  }
+  .el-input--small input.el-input__inner {
+    padding: 0 8px;
+  }
   .tb-edit .el-input {
     display: none;
   }
@@ -323,6 +362,35 @@
   }
   .el-aside {
     overflow: inherit;
+  }
+  .tb-edit .success-icon {
+    display: none;
+  }
+  .tb-edit .current-row .success-icon {
+    display: inline;
+    cursor: pointer;
+  }
+  #hostTable {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ebebeb;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    transition: 0.2s;
+  }
+  /* #hostTable:hover {
+                                                                                                                                          box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+                                                                                                                                            0 2px 4px 0 rgba(232, 237, 250, 0.5);
+                                                                                                                                        } */
+  .tb-edit .delete-icon {
+    color: brown;
+    padding-left: 14px;
+    cursor: pointer;
+  }
+  .tb-edit .current-row .delete-icon {
+    display: inline;
+    padding-left: 0px;
+    cursor: pointer;
   }
   .demo-color-box {
     padding: 20px;
@@ -351,15 +419,28 @@
     background: #67c23a;
   }
   .preview {
-    padding: 10px;
-    margin: 10px auto;
-    display: block;
-    width: 95%;
-    height: 300px;
+    font-family: Fira Code, Tahoma, Geneva, Verdana, sans-serif;
+    padding: 8px;
+    /* margin: 50px auto; */
+    display: none;
+    /* width: 100%; */
+    height: 0px;
     font-size: 15px;
-    background: #eee;
-    border-radius: 5px;
+    background: #fafafa;
+    border-left: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    /* border-radius: 3px; */
     cursor: not-allowed;
+  }
+  p.preview span {
+    padding: 0px;
+    margin: 0px;
+  }
+  p.preview span.space {
+    /* display: block; */
+    /* background: indianred; */
+    /* padding-left: 1em; */
   }
   .current {
     line-height: 2px;
@@ -371,5 +452,49 @@
     position: fixed;
     right: 10px;
     bottom: 10px;
+  }
+  .hovering {
+    transform: translateX(-40px);
+  }
+  #blockControl {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #409eff;
+    /* background: firebrick; */
+    text-align: center;
+    border: 1px solid #ebebeb;
+    border-top: none;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  #blockControl:hover {
+    color: #409eff;
+    background-color: #f9fafc;
+  }
+  #blockControl:hover i {
+    transform: translateX(-20px);
+  }
+  #blockControl:hover span {
+    display: inline;
+    /* transform: translateX(-40px); */
+  }
+  #blockControl i {
+    color: #409eff;
+    font-size: 16px;
+    line-height: 40px;
+    transition: 0.3s;
+  }
+  #blockControl span {
+    display: none;
+    transition: 0.3s;
+  }
+
+  .preview-show {
+    height: 300px;
+    transition: 0.3s;
+    display: block;
   }
 </style>
