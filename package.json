@@ -60,7 +60,6 @@
   "dependencies": {
     "@mh-cbon/sudo-fs": "^1.0.17",
     "axios": "^0.16.1",
-    "bootstrap": "^4.0.0",
     "codemirror": "^5.34.0",
     "element-ui": "^2.3.2",
     "file-diff-parser": "0.0.1",
