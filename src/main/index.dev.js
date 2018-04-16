@@ -11,7 +11,9 @@
 process.env.NODE_ENV = 'development'
 
 // Install `electron-debug` with `devtron`
-require('electron-debug')({ showDevTools: false })
+require('electron-debug')({
+  showDevTools: false
+})
 
 // Install `vue-devtools`
 require('electron').app.on('ready', () => {
@@ -44,6 +46,29 @@ var mb = menubar(opts)
 
 // console.log('dev ----- ')
 mb.on('ready', function ready() {
+  // console.log('--limao---')
+  // console.log(app.getAppPath())
+  // Build default menu for text editing and devtools. (gone since electron 0.25.2)
+  // var menu = Menu.buildFromTemplate(template)
+  // Menu.setApplicationMenu(menu)
+})
+
+
+
+// ========== 04-17 农历 menubar
+var menubar2 = require('menubar')
+var opts = {
+  dir: __dirname + '/../menubar/lunar',
+  width: 540,
+  height: 425
+  // alwaysOnTop: true
+  // showOnRightClick: true
+}
+var mb2 = menubar2(opts)
+// var mb = menubar()
+
+// console.log('dev ----- ')
+mb2.on('ready', function ready() {
   // console.log('--limao---')
   // console.log(app.getAppPath())
   // Build default menu for text editing and devtools. (gone since electron 0.25.2)
