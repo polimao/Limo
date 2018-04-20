@@ -1,13 +1,16 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="150px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
+      <el-aside>
+        <div class="demo-color-box">情景</div>
+        <div class="demo-color-box" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
+          <el-color-picker style="float:left;" v-model="v.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
-        <div class="demo-color-box">
+          </el-color-picker>
+          <i>
+            <span>{{ v.name}}</span>
+          </i>
 
-        </div>
-        <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
-          {{ v.name}}
           <!-- <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div> -->
         </div>
       </el-aside>
@@ -361,6 +364,10 @@
     display: none;
   }
   .el-aside {
+    width: 150px !important;
+    background-color: #f5f5f4;
+    border-right: 1px solid #dddddd;
+    height: 100vh;
     overflow: inherit;
   }
   .tb-edit .success-icon {
@@ -379,9 +386,9 @@
     transition: 0.2s;
   }
   /* #hostTable:hover {
-                                                                                                                                          box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
-                                                                                                                                            0 2px 4px 0 rgba(232, 237, 250, 0.5);
-                                                                                                                                        } */
+                                                                                                                                                                                                                                                                                                                                            box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+                                                                                                                                                                                                                                                                                                                                              0 2px 4px 0 rgba(232, 237, 250, 0.5);
+                                                                                                                                                                                                                                                                                                                                          } */
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;
@@ -393,19 +400,23 @@
     cursor: pointer;
   }
   .demo-color-box {
-    padding: 20px;
-    margin: 8px 0;
-    height: 36px;
+    height: 30px;
     box-sizing: border-box;
-    color: #fff;
-    line-height: 0px;
-    font-size: 16px;
-    position: relative;
+    color: #333333;
+    line-height: 30px;
+    font-size: 14px;
     cursor: pointer;
+    padding-left: 10px;
+  }
+  .demo-color-box i.colorTag {
+    border-radius: 8px;
+    width: 80%;
+    display: block;
+    height: 20px;
+    text-indent: 10px;
+    margin: 0 auto;
   }
   .arrow {
-    /* width: 13px; */
-    /* height: 54px; */
     position: absolute;
     top: 0px;
     right: -14px;
@@ -443,9 +454,10 @@
     /* padding-left: 1em; */
   }
   .current {
-    line-height: 2px;
-    border-top: #333 solid 1px;
-    border-bottom: #333 solid 1px;
+    /* line-height: 2px; */
+    /* border-top: #333 solid 1px; */
+    /* border-bottom: #333 solid 1px; */
+    background: #dddfe1;
   }
 
   #menu-navigation {

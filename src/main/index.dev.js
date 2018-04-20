@@ -27,50 +27,5 @@ require('electron').app.on('ready', () => {
     })
 })
 
-// const { remote } = require('electron')
-// const { app } = remote
-
-//   2018 03-06 注释
-// var menubar = require('menubar')
-
-// var mb = menubar({
-//   dir: path.join(__dirname, '/../menubar'),
-//   width: 200,
-//   height: 150
-//   // alwaysOnTop: true
-//   // showOnRightClick: true
-// })
-// var mb = menubar()
-
-// console.log('dev ----- ')
-// mb.on('after-create-window', function ready() {
-//   // console.log('--limao---')
-//   // console.log(app.getAppPath())
-//   // Build default menu for text editing and devtools. (gone since electron 0.25.2)
-//   // var menu = Menu.buildFromTemplate(template)
-//   // Menu.setApplicationMenu(menu)
-// })
-// ========== 04-17 农历 menubar
-
-// var mb2 = menubar({
-//   dir: path.join(__dirname, '/../menubar/lunar'),
-//   width: 540,
-//   height: 425
-//   // alwaysOnTop: true
-//   // showOnRightClick: true
-// })
-// var mb = menubar()
-
-// console.log('dev ----- ')
-// mb2.on('after-create-window', function ready() {
-//   // console.log('--limao---')
-//   // console.log(app.getAppPath())
-//   // Build default menu for text editing and devtools. (gone since electron 0.25.2)
-//   // var menu = Menu.buildFromTemplate(template)
-//   // Menu.setApplicationMenu(menu)
-// })
-// console.log(iconPath)
-
-
 // Require `main` process to boot app
 require('./index')
