@@ -70,16 +70,7 @@ require('electron').app.on('ready', () => {
 //   // Menu.setApplicationMenu(menu)
 // })
 // console.log(iconPath)
-var menubar = require('menubar')
-menubar({
-  dir: path.join(__dirname, '/../menubar/lunar'),
-  width: 540,
-  height: 425,
-  // icon: iconPath
-  // icon: path.join(__dirname, '//../menubar/lunar/', 'panda.png').replace(/\\/g, '\\\\'),
-  // alwaysOnTop: true
-  // showOnRightClick: true
-})
+
 
 // Require `main` process to boot app
 require('./index')
