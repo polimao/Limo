@@ -31,27 +31,27 @@ function createWindow() {
   })
 
   mainWindow.loadURL(winURL)
-  // mainWindow.isMenuBarVisible(false)
-  Menu.setApplicationMenu(null)
+  mainWindow.isMenuBarVisible(true)
+  // Menu.setApplicationMenu(null)
 
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 }
 
-app.on('ready', createWindow)
+// app.on('ready', createWindow)
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') {
+//     app.quit()
+//   }
+// })
 
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
+// app.on('activate', () => {
+//   if (mainWindow === null) {
+//     createWindow()
+//   }
+// })
 
 /**
  * Auto Updater
@@ -72,3 +72,15 @@ app.on('ready', () => {
   if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
 })
  */
+
+var path = require('path')
+var menubar = require('menubar')
+menubar({
+  dir: path.join(__static, '/menubar/lunar'),
+  width: 540,
+  height: 425,
+  // icon: iconPath
+  icon: path.join(__static, '/cat.png')
+  // alwaysOnTop: true
+  // showOnRightClick: true
+})

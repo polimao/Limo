@@ -1,6 +1,6 @@
 {
   "name": "limo",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "李貌 <limao@startcalife.com>",
   "description": "程序员开发小工具集合",
   "license": null,
@@ -60,7 +60,6 @@
   "dependencies": {
     "@mh-cbon/sudo-fs": "^1.0.17",
     "axios": "^0.16.1",
-    "bootstrap": "^4.0.0",
     "codemirror": "^5.34.0",
     "element-ui": "^2.3.2",
     "file-diff-parser": "0.0.1",
