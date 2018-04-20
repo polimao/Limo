@@ -10,8 +10,6 @@
           <i>
             <span>{{ v.name}}</span>
           </i>
-
-          <!-- <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div> -->
         </div>
       </el-aside>
       <el-main>
@@ -385,10 +383,6 @@
     border-top-right-radius: 3px;
     transition: 0.2s;
   }
-  /* #hostTable:hover {
-                                                                                                                                                                                                                                                                                                                                            box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
-                                                                                                                                                                                                                                                                                                                                              0 2px 4px 0 rgba(232, 237, 250, 0.5);
-                                                                                                                                                                                                                                                                                                                                          } */
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;
@@ -416,16 +410,6 @@
     text-indent: 10px;
     margin: 0 auto;
   }
-  .arrow {
-    position: absolute;
-    top: 0px;
-    right: -14px;
-    z-index: 91999;
-    border-top: 19px solid transparent;
-    border-right: 13px solid #fff;
-    border-bottom: 19px solid transparent;
-    /* box-shadow: 2px 0 5px #ddd; */
-  }
   .bg-success {
     background: #67c23a;
   }
@@ -441,22 +425,13 @@
     border-left: 1px solid #ebebeb;
     border-right: 1px solid #ebebeb;
     border-bottom: 1px solid #ebebeb;
-    /* border-radius: 3px; */
     cursor: not-allowed;
   }
   p.preview span {
     padding: 0px;
     margin: 0px;
   }
-  p.preview span.space {
-    /* display: block; */
-    /* background: indianred; */
-    /* padding-left: 1em; */
-  }
   .current {
-    /* line-height: 2px; */
-    /* border-top: #333 solid 1px; */
-    /* border-bottom: #333 solid 1px; */
     background: #dddfe1;
   }
 
@@ -474,7 +449,6 @@
     font-size: 14px;
     cursor: pointer;
     color: #409eff;
-    /* background: firebrick; */
     text-align: center;
     border: 1px solid #ebebeb;
     border-top: none;
