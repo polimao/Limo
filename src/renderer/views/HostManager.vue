@@ -7,9 +7,7 @@
           <el-color-picker style="float:left;" v-model="v.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
           </el-color-picker>
-          <i>
-            <span>{{ v.name}}</span>
-          </i>
+          <span>&nbsp;{{ v.name}}</span>
         </div>
       </el-aside>
       <el-main>
@@ -402,14 +400,7 @@
     cursor: pointer;
     padding-left: 10px;
   }
-  .demo-color-box i.colorTag {
-    border-radius: 8px;
-    width: 80%;
-    display: block;
-    height: 20px;
-    text-indent: 10px;
-    margin: 0 auto;
-  }
+
   .bg-success {
     background: #67c23a;
   }
