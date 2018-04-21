@@ -14,54 +14,52 @@
       <el-main>
 
         <h4>
-          情景：{{currentScene.name}}
-          <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
-          <!-- <el-color-picker style="float:right;" v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
+          <el-input v-if="nameInputVisible" v-model="currentScene.name" @keyup.enter.native="nameInputConfirm" @blur="nameInputConfirm" size="mini"></el-input>
 
-          </el-color-picker> -->
+          <div v-else @click="nameInputVisible = true">{{currentScene.name}}</div>
+          <i v-show="currentScene.roleName === this.usedScene" style="float:right;color:#6F9BF1;font-size:20px;">✓</i>
 
-          <el-checkbox v-model="checked" style="float:right;"></el-checkbox>
         </h4>
 
-        <div id="hostTable">
-          <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="disableClassName">
-            <el-table-column type="index" width="36">
+        <div id="hostTable ">
+          <el-table ref="singleTable " :data="currentScene.hostData " class="tb-edit " style="width: 100% " highlight-current-row @row-click="handleCurrentChange " :row-class-name="disableClassName ">
+            <el-table-column type="index " width="36 ">
             </el-table-column>
-            <el-table-column sortable label="IP" fit width="120" class="test">
-              <template scope="scope">
-                <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" fit @change="handleEdit(scope.$index, scope.row)"></el-input>
+            <el-table-column sortable label="IP " fit width="120 " class="test ">
+              <template scope="scope ">
+                <el-input size="small " v-model="scope.row.ip " placeholder="请输入内容 " fit @change="handleEdit(scope.$index, scope.row) "></el-input>
                 <span>{{scope.row.ip}}</span>
               </template>
             </el-table-column>
-            <el-table-column sortable label="域名" width="280">
-              <template scope="scope">
-                <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+            <el-table-column sortable label="域名 " width="280 ">
+              <template scope="scope ">
+                <el-input size="small " v-model="scope.row.domain " placeholder="请输入内容 " @change="handleEdit(scope.$index, scope.row) "></el-input>
                 <span>{{scope.row.domain}}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="note" label="备注">
-              <template scope="scope">
-                <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+            <el-table-column prop="note " label="备注 ">
+              <template scope="scope ">
+                <el-input size="small " v-model="scope.row.note " placeholder="请输入内容 " @change="handleEdit(scope.$index, scope.row) "></el-input>
                 <span>{{scope.row.note}}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作">
-              <template scope="scope">
-                <i class='el-icon-circle-check-outline success-icon' @click="buttonEdit(scope.$index, scope.row)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <el-table-column label="操作 ">
+              <template scope="scope ">
+                <i class='el-icon-circle-check-outline success-icon' @click="buttonEdit(scope.$index, scope.row) "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <i class='el-icon-delete delete-icon' @click="handleDelete(scope.$index, scope.row)"></i>
+                <i class='el-icon-delete delete-icon' @click="handleDelete(scope.$index, scope.row) "></i>
 
               </template>
             </el-table-column>
           </el-table>
-          <el-button size="mini" style="margin-top:8px;" @click="addOne">
-            <i class="el-icon-plus"></i>
+          <el-button size="mini " style="margin-top:8px; " @click="addOne ">
+            <i class="el-icon-plus "></i>
           </el-button>
         </div>
 
-        <p class="preview" :class="{'preview-show':previewShow}">
-          <span v-for="row in preview.hostData">{{ row.ip }} {{ row.domain }}
-            <span class="space" v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>
+        <p class="preview " :class="{ 'preview-show':previewShow} ">
+          <span v-for="row in preview.hostData ">{{ row.ip }} {{ row.domain }}
+            <span class="space " v-for="(v,k) in preview.longest " v-if="preview.longest.length - k> row.longest">&nbsp;</span>
             #{{ row.note }}</br>
           </span>
 
@@ -92,6 +90,7 @@
   export default {
     data() {
       return {
+        usedScene: '',
         currentScene: {
           name: '',
           color: '',
@@ -147,7 +146,8 @@
         ],
         editerPath: '/etc/hosts',
         preview: {},
-        previewShow: false
+        previewShow: false,
+        nameInputVisible: false
       }
     },
     name: 'landing-page',
@@ -247,6 +247,10 @@
           return 'disable'
         }
         return ''
+      },
+      nameInputConfirm() {
+        this.nameInputVisible = false
+        this.saveHost()
       }
     },
     mounted() {
@@ -260,6 +264,7 @@
         console.log(' get hostData', error, docs)
         if (docs) {
           that.scenes = docs.scenes
+          that.usedScene = docs.usedScene
           let index = that.$cookies.get('switchSceneIndex')
           console.log('index', index)
           if (!index) {
