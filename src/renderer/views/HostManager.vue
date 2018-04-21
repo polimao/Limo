@@ -25,13 +25,13 @@
           <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="disableClassName">
             <el-table-column type="index" width="36">
             </el-table-column>
-            <el-table-column sortable label="IP" fit width="120" class="test">
+            <el-table-column prop="ip" label="IP" width="120">
               <template scope="scope">
-                <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" fit @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
                 <span>{{scope.row.ip}}</span>
               </template>
             </el-table-column>
-            <el-table-column sortable label="域名" width="280">
+            <el-table-column prop="domain" label="域名" width="280">
               <template scope="scope">
                 <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
                 <span>{{scope.row.domain}}</span>
@@ -154,14 +154,11 @@
     components: { MenuNavigation },
     methods: {
       changeColor(val) {
-        console.log('---' + val)
-        this.saveHost()
-      },
-      changeName(val) {
-        console.log('---' + val)
+        console.log('changeColor' + val)
         this.saveHost()
       },
       handleCurrentChange(row, event, column) {
+        console.log('handleCurrentChange')
         // console.log(
         //   'handleCurrentChange',
         //   row,
@@ -172,7 +169,7 @@
       },
       handleEdit(index, row) {
         this.saveHost()
-        console.log('---', index, row.domain)
+        console.log('handleEdit', index, row)
       },
       handleDelete(index, row) {
         console.log('delete', index, row)
@@ -184,6 +181,7 @@
         this.currentScene = scene
       },
       addOne() {
+        console.log('addOne')
         this.currentScene.hostData.push({
           ip: '',
           domain: '',
@@ -233,6 +231,7 @@
         // })
       },
       setCurrent() {
+        console.log('setCurrent')
         var t
         var that = this
         clearTimeout(t)
@@ -244,11 +243,12 @@
       },
       disableClassName({ row, rowIndex }) {
         if (row.ip === '' || row.domain === '') {
-          return 'disable'
+          return 'invalid'
         }
         return ''
       },
       nameInputConfirm() {
+        console.log('nameInputConfirm')
         this.nameInputVisible = false
         this.saveHost()
       }
@@ -321,7 +321,7 @@
   table td {
     padding: 6px 0px !important;
   }
-  table tr.disable {
+  table tr.invalid {
     background-size: 10px 10px;
     background-color: rgb(253, 239, 239);
     background-image: -webkit-gradient(
