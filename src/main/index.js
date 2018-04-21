@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -39,19 +39,19 @@ function createWindow() {
   })
 }
 
-// app.on('ready', createWindow)
+app.on('ready', createWindow)
 
-// app.on('window-all-closed', () => {
-//   if (process.platform !== 'darwin') {
-//     app.quit()
-//   }
-// })
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
 
-// app.on('activate', () => {
-//   if (mainWindow === null) {
-//     createWindow()
-//   }
-// })
+app.on('activate', () => {
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
 
 /**
  * Auto Updater
@@ -73,14 +73,23 @@ app.on('ready', () => {
 })
  */
 
+/** 农历 */
 var path = require('path')
 var menubar = require('menubar')
 menubar({
   dir: path.join(__static, '/menubar/lunar'),
   width: 540,
   height: 425,
-  // icon: iconPath
   icon: path.join(__static, '/cat.png')
   // alwaysOnTop: true
+  // showOnRightClick: true
+})
+
+/** Host 管理 */
+menubar({
+  dir: path.join(__dirname, '/../menubar'),
+  width: 200,
+  height: 150,
+  alwaysOnTop: true
   // showOnRightClick: true
 })

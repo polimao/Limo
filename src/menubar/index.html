@@ -1,24 +1,43 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" href="../../../node_modules/element-ui/lib/theme-chalk/index.css">
-</head>
-
 <style>
   .scene-iterm {
-    padding-left: 10px;
-    line-height: 18px;
-    height: 18px;
-    font: 1em sans-serif;
-    font-size: 13px;
+    text-indent: 10px;
+    padding: 3px;
+    font: 13px sans-serif;
     margin: 0px;
+    cursor: default;
+    position: relative;
+  }
+
+  .space {
+    margin-top: 5px;
+  }
+
+  .scene-iterm:hover {
+    background: #6F9BF1;
+    color: #fff;
+  }
+
+  .scene-iterm b {
+    width: 18px;
+    height: 10px;
+    display: block;
+    border: 1px solid #9498C4;
+    float: left;
+    margin-top: 2px;
+    margin-left: 20px;
+  }
+
+  .scene-iterm:hover b {
+    border: 1px solid #666;
+  }
+
+  .scene-iterm i {
+    display: block;
+    float: left;
+    position: absolute;
+    left: -4px;
   }
 
   * {
@@ -27,16 +46,18 @@
   }
 
   body {
-    background: #fff;
+    background: #F0F0F0;
   }
 </style>
 
 <body>
-
+  <div class="space"></div>
   <div id="app">
     <template>
-      <div v-for="scene in hostData.scenes">
-        <p class="scene-iterm">{{scene.name}}</p>
+      <div v-for="scene in hostData.scenes" class="scene-iterm" @click="setScene(scene)">
+        <i v-if="hostData.usedScene == scene.roleName">✓</i>
+
+        <b :style="{background:scene.color}"></b>{{scene.name}}
       </div>
     </template>
   </div>
@@ -56,19 +77,46 @@
 
   new Vue({
     data: {
-      hostData: null
+      hostData: {
+        usedScene: '',
+        scenes: {}
+      }
     },
     components: {
       // App
     },
-    mounted() {
+    methods: {
+      setScene(scene) {
+        this.hostData.usedScene = scene.roleName
+        console.log('setScene', scene)
+
+        this.$db.update({
+          table: 'hostData'
+        }, {
+          $set: {
+            usedScene: scene.roleName
+          }
+        }, {}, function () {
+
+        })
+
+        // 查询所有数据
+        this.$db.find({
+          table: 'hostData'
+        }, function (err, docs) {
+          console.log(err, docs)
+        })
+      }
+    },
+    created() {
+      console.log('created')
       var that = this
-      // // 查询所有数据
       this.$db.findOne({
         table: 'hostData'
       }, function (err, docs) {
         console.log(err, docs)
         if (docs) {
+          that.usedScene = docs.usedScene
           that.hostData = docs
         }
       })

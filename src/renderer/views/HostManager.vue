@@ -1,29 +1,26 @@
 <template>
   <main>
     <el-container>
-      <el-aside width="150px" style="background-color: rgb(238, 241, 246)" :style="{ 'border-right' :' 0.5px solid #bbb','height' : '100vh'}">
+      <el-aside>
+        <br/>
+        <div class="demo-color-box">情景</div>
+        <div class="demo-color-box" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
+          <el-color-picker style="float:left;" v-model="v.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
-        <div class="demo-color-box">
-
-        </div>
-        <div class="demo-color-box" :style="{ background : v.color }" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
-          {{ v.name}}
-          <!-- <div class="arrow" :style="{ background : v.color }" v-if="v.name == currentScene.name"></div> -->
+          </el-color-picker>
+          <span>&nbsp;&nbsp;{{ v.name}}</span>
         </div>
       </el-aside>
       <el-main>
 
-        <h3>
-          情景：{{currentScene.name}}
-          <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
-          <el-color-picker style="float:right;" v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
+        <h4>
+          <el-input v-if="nameInputVisible" v-model="currentScene.name" @keyup.enter.native="nameInputConfirm" @blur="nameInputConfirm" size="mini"></el-input>
 
-          </el-color-picker>
-        </h3>
-        <!-- <hr/> -->
-        <h3>
+          <div v-else @click="nameInputVisible = true">{{currentScene.name}}</div>
+          <i v-show="currentScene.roleName === this.usedScene" style="float:right;color:#6F9BF1;font-size:20px;">✓</i>
 
-        </h3>
+        </h4>
+
         <div id="hostTable">
           <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="disableClassName">
             <el-table-column type="index" width="36">
@@ -60,9 +57,9 @@
           </el-button>
         </div>
 
-        <p class="preview" :class="{'preview-show':previewShow}">
+        <p class="preview" :class="{ 'preview-show':previewShow}">
           <span v-for="row in preview.hostData">{{ row.ip }} {{ row.domain }}
-            <span class="space" v-for="(v,k) in preview.longest" v-if="preview.longest.length - k > row.longest">&nbsp;</span>
+            <span class="space" v-for="(v,k) in preview.longest" v-if="preview.longest.length - k> row.longest">&nbsp;</span>
             #{{ row.note }}</br>
           </span>
 
@@ -93,6 +90,7 @@
   export default {
     data() {
       return {
+        usedScene: '',
         currentScene: {
           name: '',
           color: '',
@@ -107,7 +105,7 @@
         },
         scenes: [
           {
-            name: '通用',
+            name: 'Common',
             color: '#D3D3D3',
             roleName: 'common',
             hostData: [
@@ -119,19 +117,19 @@
             ]
           },
           {
-            name: '情景一',
+            name: 'Dev',
             color: '#EF836C',
             roleName: 'scene1',
             hostData: []
           },
           {
-            name: '情景二',
+            name: 'Test',
             color: '#F7BD76',
             roleName: 'scene2',
             hostData: []
           },
           {
-            name: '情景三',
+            name: 'Production',
             color: '#F9EA8C',
             roleName: 'scene3',
             hostData: []
@@ -148,7 +146,8 @@
         ],
         editerPath: '/etc/hosts',
         preview: {},
-        previewShow: false
+        previewShow: false,
+        nameInputVisible: false
       }
     },
     name: 'landing-page',
@@ -191,36 +190,28 @@
           note: ''
         })
         this.setCurrent()
-
-        this.saveHost()
       },
       buttonEdit() {
         console.log('buttonEdit')
-        var t
+        var t1
         var that = this
-        clearTimeout(t)
-        t = setTimeout(function() {
+        clearTimeout(t1)
+        t1 = setTimeout(function() {
           that.$refs.singleTable.setCurrentRow({})
         }, 50)
       },
       saveHost() {
-        const that = this
-
+        console.log('saveHost')
         this.$db.update(
           { table: 'hostData' },
           {
-            table: 'hostData',
-            scenes: this.scenes
+            $set: {
+              scenes: this.scenes
+            }
           },
-          {},
+          { upsert: true },
           function(err, numReplaced) {
             console.log(err, numReplaced)
-            if (numReplaced !== 1) {
-              that.$db.insert({
-                table: 'hostData',
-                scenes: that.scenes
-              })
-            }
           }
         )
 
@@ -256,6 +247,10 @@
           return 'disable'
         }
         return ''
+      },
+      nameInputConfirm() {
+        this.nameInputVisible = false
+        this.saveHost()
       }
     },
     mounted() {
@@ -269,6 +264,7 @@
         console.log(' get hostData', error, docs)
         if (docs) {
           that.scenes = docs.scenes
+          that.usedScene = docs.usedScene
           let index = that.$cookies.get('switchSceneIndex')
           console.log('index', index)
           if (!index) {
@@ -361,6 +357,10 @@
     display: none;
   }
   .el-aside {
+    width: 150px !important;
+    background-color: #f5f5f4;
+    border-right: 1px solid #dddddd;
+    height: 100vh;
     overflow: inherit;
   }
   .tb-edit .success-icon {
@@ -378,10 +378,6 @@
     border-top-right-radius: 3px;
     transition: 0.2s;
   }
-  /* #hostTable:hover {
-                                                                                                                                          box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
-                                                                                                                                            0 2px 4px 0 rgba(232, 237, 250, 0.5);
-                                                                                                                                        } */
   .tb-edit .delete-icon {
     color: brown;
     padding-left: 14px;
@@ -393,28 +389,15 @@
     cursor: pointer;
   }
   .demo-color-box {
-    padding: 20px;
-    margin: 8px 0;
-    height: 36px;
+    height: 30px;
     box-sizing: border-box;
-    color: #fff;
-    line-height: 0px;
-    font-size: 16px;
-    position: relative;
+    color: #333333;
+    line-height: 30px;
+    font-size: 14px;
     cursor: pointer;
+    padding-left: 10px;
   }
-  .arrow {
-    /* width: 13px; */
-    /* height: 54px; */
-    position: absolute;
-    top: 0px;
-    right: -14px;
-    z-index: 91999;
-    border-top: 19px solid transparent;
-    border-right: 13px solid #fff;
-    border-bottom: 19px solid transparent;
-    /* box-shadow: 2px 0 5px #ddd; */
-  }
+
   .bg-success {
     background: #67c23a;
   }
@@ -430,22 +413,14 @@
     border-left: 1px solid #ebebeb;
     border-right: 1px solid #ebebeb;
     border-bottom: 1px solid #ebebeb;
-    /* border-radius: 3px; */
     cursor: not-allowed;
   }
   p.preview span {
     padding: 0px;
     margin: 0px;
   }
-  p.preview span.space {
-    /* display: block; */
-    /* background: indianred; */
-    /* padding-left: 1em; */
-  }
   .current {
-    line-height: 2px;
-    border-top: #333 solid 1px;
-    border-bottom: #333 solid 1px;
+    background: #dddfe1;
   }
 
   #menu-navigation {
@@ -462,7 +437,6 @@
     font-size: 14px;
     cursor: pointer;
     color: #409eff;
-    /* background: firebrick; */
     text-align: center;
     border: 1px solid #ebebeb;
     border-top: none;
