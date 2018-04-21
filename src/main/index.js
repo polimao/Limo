@@ -89,7 +89,7 @@ menubar({
 menubar({
   dir: path.join(__dirname, '/../menubar'),
   width: 200,
-  height: 150
-  // alwaysOnTop: true
+  height: 150,
+  alwaysOnTop: true
   // showOnRightClick: true
 })

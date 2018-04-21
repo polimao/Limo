@@ -2,27 +2,27 @@
   <main>
     <el-container>
       <el-aside>
+        <br/>
         <div class="demo-color-box">情景</div>
         <div class="demo-color-box" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
           <el-color-picker style="float:left;" v-model="v.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
           </el-color-picker>
-          <span>&nbsp;{{ v.name}}</span>
+          <span>&nbsp;&nbsp;{{ v.name}}</span>
         </div>
       </el-aside>
       <el-main>
 
-        <h3>
+        <h4>
           情景：{{currentScene.name}}
           <!-- <el-input v-model="currentScene.name" @change="changeName"></el-input> -->
-          <el-color-picker style="float:right;" v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
+          <!-- <el-color-picker style="float:right;" v-model="currentScene.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
-          </el-color-picker>
-        </h3>
-        <!-- <hr/> -->
-        <h3>
+          </el-color-picker> -->
 
-        </h3>
+          <el-checkbox v-model="checked" style="float:right;"></el-checkbox>
+        </h4>
+
         <div id="hostTable">
           <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="disableClassName">
             <el-table-column type="index" width="36">
@@ -106,7 +106,7 @@
         },
         scenes: [
           {
-            name: '通用',
+            name: 'Common',
             color: '#D3D3D3',
             roleName: 'common',
             hostData: [
@@ -118,19 +118,19 @@
             ]
           },
           {
-            name: '情景一',
+            name: 'Dev',
             color: '#EF836C',
             roleName: 'scene1',
             hostData: []
           },
           {
-            name: '情景二',
+            name: 'Test',
             color: '#F7BD76',
             roleName: 'scene2',
             hostData: []
           },
           {
-            name: '情景三',
+            name: 'Production',
             color: '#F9EA8C',
             roleName: 'scene3',
             hostData: []
@@ -190,8 +190,6 @@
           note: ''
         })
         this.setCurrent()
-
-        this.saveHost()
       },
       buttonEdit() {
         console.log('buttonEdit')
@@ -203,23 +201,17 @@
         }, 50)
       },
       saveHost() {
-        const that = this
-
+        console.log('saveHost')
         this.$db.update(
           { table: 'hostData' },
           {
-            table: 'hostData',
-            scenes: this.scenes
+            $set: {
+              scenes: this.scenes
+            }
           },
-          {},
+          { upsert: true },
           function(err, numReplaced) {
             console.log(err, numReplaced)
-            if (numReplaced !== 1) {
-              that.$db.insert({
-                table: 'hostData',
-                scenes: that.scenes
-              })
-            }
           }
         )
 
