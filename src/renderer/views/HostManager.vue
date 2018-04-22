@@ -22,24 +22,24 @@
         </h4>
 
         <div id="hostTable">
-          <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="disableClassName">
+          <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="invalidClassName">
             <el-table-column type="index" width="36">
             </el-table-column>
-            <el-table-column prop="ip" label="IP" width="120">
+            <el-table-column prop="ip" label="IP">
               <template scope="scope">
-                <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <el-input size="small" v-model="scope.row.ip" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)" @keyup.enter.native="buttonEdit"></el-input>
                 <span>{{scope.row.ip}}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="domain" label="域名" width="280">
+            <el-table-column prop="domain" label="域名">
               <template scope="scope">
-                <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)" @keyup.enter.native="buttonEdit"></el-input>
                 <span>{{scope.row.domain}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="note" label="备注">
               <template scope="scope">
-                <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input>
+                <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)" @keyup.enter.native="buttonEdit"></el-input>
                 <span>{{scope.row.note}}</span>
               </template>
             </el-table-column>
@@ -189,7 +189,7 @@
         })
         this.setCurrent()
       },
-      buttonEdit() {
+      buttonEdit(index, row) {
         console.log('buttonEdit')
         var t1
         var that = this
@@ -241,11 +241,22 @@
           that.$refs.singleTable.setCurrentRow(row)
         }, 300)
       },
-      disableClassName({ row, rowIndex }) {
-        if (row.ip === '' || row.domain === '') {
-          return 'invalid'
+      invalidClassName({ row, rowIndex }) {
+        var invalidClass = '',
+          currentClass = ''
+
+        let doms = document.getElementsByClassName('el-table__row')
+        if (
+          doms[rowIndex] &&
+          doms[rowIndex].className.indexOf('current-row') !== -1
+        ) {
+          currentClass = ' current-row'
         }
-        return ''
+
+        if (row.ip === '' || row.domain === '') {
+          invalidClass = 'invalid'
+        }
+        return invalidClass + currentClass
       },
       nameInputConfirm() {
         console.log('nameInputConfirm')
