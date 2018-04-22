@@ -39,7 +39,7 @@
       <div class="right-side">
         <div class="doc">
           <p>
-            <system-information></system-information>
+            <Menu></Menu>
           </p>
         </div>
       </div>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/Menu'
+  import Menu from './LandingPage/Menu'
 
   export default {
     data() {
@@ -58,7 +58,7 @@
       }
     },
     name: 'landing-page',
-    components: { SystemInformation },
+    components: { Menu },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link)
