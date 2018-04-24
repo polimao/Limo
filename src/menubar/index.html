@@ -99,13 +99,10 @@
         }, {}, function () {
 
         })
-
-        // 查询所有数据
-        this.$db.find({
-          table: 'hostData'
-        }, function (err, docs) {
-          console.log(err, docs)
-        })
+        this.insertHostsFile()
+      },
+      insertHostsFile() {
+        console.log('insertHostsFile', this.hostData)
       }
     },
     created() {

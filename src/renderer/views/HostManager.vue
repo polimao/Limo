@@ -9,21 +9,22 @@
 
           </el-color-picker>
           <span>&nbsp;&nbsp;{{ v.name}}</span>
+
+          <!-- <i v-show="v.roleName === usedScene" style="float:right;color:#6F9BF1;font-size:20px;">✓</i> -->
         </div>
       </el-aside>
       <el-main>
 
-        <h4>
+        <!-- <h4>
           <el-input v-if="nameInputVisible" v-model="currentScene.name" @keyup.enter.native="nameInputConfirm" @blur="nameInputConfirm" size="mini"></el-input>
 
           <div v-else @click="nameInputVisible = true">{{currentScene.name}}</div>
-          <i v-show="currentScene.roleName === this.usedScene" style="float:right;color:#6F9BF1;font-size:20px;">✓</i>
 
-        </h4>
+        </h4> -->
 
         <div id="hostTable">
           <el-table ref="singleTable" :data="currentScene.hostData" class="tb-edit" style="width: 100%" highlight-current-row @row-click="handleCurrentChange" :row-class-name="invalidClassName">
-            <el-table-column type="index" width="36">
+            <el-table-column type="index">
             </el-table-column>
             <el-table-column prop="ip" label="IP">
               <template scope="scope">
@@ -36,14 +37,14 @@
                 <el-input size="small" v-model="scope.row.domain" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)" @keyup.enter.native="buttonEdit"></el-input>
                 <span>{{scope.row.domain}}</span>
               </template>
-            </el-table-column>
-            <el-table-column prop="note" label="备注">
+            </el-table-column>˝
+            <el-table-column prop="note" label="ⓘ" width="100">
               <template scope="scope">
                 <el-input size="small" v-model="scope.row.note" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)" @keyup.enter.native="buttonEdit"></el-input>
                 <span>{{scope.row.note}}</span>
               </template>
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="right" width="90">
               <template scope="scope">
                 <i class='el-icon-circle-check-outline success-icon' @click="buttonEdit(scope.$index, scope.row)"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -103,8 +104,8 @@
             // },
           ]
         },
-        scenes: [
-          {
+        scenes: {
+          common: {
             name: 'Common',
             color: '#D3D3D3',
             roleName: 'common',
@@ -116,25 +117,25 @@
               // }
             ]
           },
-          {
+          dev: {
             name: 'Dev',
             color: '#EF836C',
             roleName: 'scene1',
             hostData: []
           },
-          {
+          test: {
             name: 'Test',
             color: '#F7BD76',
             roleName: 'scene2',
             hostData: []
           },
-          {
+          prod: {
             name: 'Production',
             color: '#F9EA8C',
             roleName: 'scene3',
             hostData: []
           }
-        ],
+        },
         predefineColors: [
           '#EF836C',
           '#F7BD76',
