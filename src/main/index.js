@@ -80,7 +80,8 @@ menubar({
   dir: path.join(__static, '/menubar/lunar'),
   width: 540,
   height: 425,
-  icon: path.join(__static, '/cat.png')
+  icon: path.join(__static, '/cat.png'),
+  showDockIcon: true
   // alwaysOnTop: true
   // showOnRightClick: true
 })
@@ -91,6 +92,13 @@ menubar({
   width: 200,
   height: 150,
   alwaysOnTop: true,
+  showDockIcon: true,
   icon: path.join(__static, '/cat.png')
+  // icon: path.join(app.getAppPath(), '/../renderer/menubar/cat.png')
   // showOnRightClick: true
 })
+
+// mb.on('ready', function ready() {
+//   mb.window.openDevTools()
+//   mb.window.loadUrl('/')
+// })
