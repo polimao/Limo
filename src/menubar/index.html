@@ -62,7 +62,7 @@
   <div id="app">
     <template>
 
-      <div v-for="scene in hostData.scenes" class="scene-iterm" @click="setScene(scene)">
+      <div v-for="(scene,k) in hostData.scenes" class="scene-iterm" @click="setScene(scene)" v-show="k != 0">
         <i v-if="hostData.usedScene == scene.roleName">✓</i>
 
         <b :style="{background:scene.color}"></b>{{scene.name}}
