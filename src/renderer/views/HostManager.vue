@@ -2,6 +2,11 @@
   <main>
     <el-container>
       <el-aside>
+        <div class="demo-color-box" align="center">
+          预览
+          <i class="el-icon-view"></i>
+        </div>
+        <hr style="background-color:#DDDDDD;border:1px solid #DDDDDD;" />
         <br/>
         <div class="demo-color-box">情景</div>
         <div class="demo-color-box" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">

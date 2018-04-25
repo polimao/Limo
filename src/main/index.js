@@ -89,8 +89,8 @@ menubar({
 /** Host 管理 */
 menubar({
   dir: path.join(__dirname, '/../menubar'),
-  width: 150,
-  height: 145,
+  width: 180,
+  height: 170,
   // alwaysOnTop: true,
   showDockIcon: true,
   icon: path.join(__static, '/cat.png')
