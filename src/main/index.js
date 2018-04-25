@@ -90,7 +90,7 @@ menubar({
 menubar({
   dir: path.join(__dirname, '/../menubar'),
   width: 150,
-  height: 94,
+  height: 145,
   // alwaysOnTop: true,
   showDockIcon: true,
   icon: path.join(__static, '/cat.png')

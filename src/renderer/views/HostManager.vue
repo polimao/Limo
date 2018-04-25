@@ -56,6 +56,10 @@
           <el-button size="mini" style="margin-top:8px;" @click="addOne">
             <i class="el-icon-plus"></i>
           </el-button>
+
+          <el-button size="mini" style="margin-top:8px;float:right;">
+            使用
+          </el-button>
         </div>
 
         <p class="preview" :class="{ 'preview-show':previewShow}">
