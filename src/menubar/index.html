@@ -68,6 +68,8 @@
   var path = require('path')
   var remote = require('electron').remote
 
+  var sudo = require('sudo-prompt')
+
   Vue.prototype.$db = new Datastore({
     autoload: true,
     filename: path.join(remote.app.getPath('userData'), '/data.db')
@@ -99,12 +101,18 @@
         }, {}, function () {
 
         })
-
-        // 查询所有数据
-        this.$db.find({
-          table: 'hostData'
-        }, function (err, docs) {
-          console.log(err, docs)
+        this.insertHostsFile()
+      },
+      insertHostsFile() {
+        console.log('insertHostsFile', this.hostData.toString())
+        // this.hostData
+        var options = {
+          name: 'Electron'
+          // icns: '/Applications/Electron.app/Contents/Resources/Electron.icns' // (optional)
+        }
+        sudo.exec('chmod 664 /etc/hosts', options, function (error, stdout, stderr) {
+          if (error) throw error
+          console.log('stdout: ' + stdout)
         })
       }
     },
