@@ -2,14 +2,19 @@
   <main>
     <el-container>
       <el-aside>
+        <div class="demo-color-box" align="center">
+          当前配置
+          <i class="el-icon-view"></i>
+        </div>
+        <hr style="background-color:#DDDDDD;border:1px solid #DDDDDD;" />
         <br/>
         <div class="demo-color-box">情景</div>
         <div class="demo-color-box" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
           <el-color-picker style="float:left;" v-model="v.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
           </el-color-picker>
-          <span>&nbsp;&nbsp;{{ v.name}}</span>
-
+          <span>&nbsp;&nbsp;{{ v.name}}{{k}}</span>
+          <hr v-show="k == 0" />
           <!-- <i v-show="v.roleName === usedScene" style="float:right;color:#6F9BF1;font-size:20px;">✓</i> -->
         </div>
       </el-aside>
@@ -55,6 +60,10 @@
           </el-table>
           <el-button size="mini" style="margin-top:8px;" @click="addOne">
             <i class="el-icon-plus"></i>
+          </el-button>
+
+          <el-button size="mini" style="margin-top:8px;float:right;">
+            使用
           </el-button>
         </div>
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <style>
   .scene-iterm {
-    text-indent: 10px;
+    text-indent: 12px;
     padding: 3px;
     font: 13px sans-serif;
     margin: 0px;
@@ -46,7 +46,14 @@
   }
 
   body {
-    background: #F0F0F0;
+    background: #E7E7E8;
+  }
+
+  hr {
+    color: #D8D8D8;
+    background-color: #D8D8D8;
+    border: 1px solid #D8D8D8;
+    height: 0px;
   }
 </style>
 
@@ -54,10 +61,23 @@
   <div class="space"></div>
   <div id="app">
     <template>
-      <div v-for="scene in hostData.scenes" class="scene-iterm" @click="setScene(scene)">
+
+      <div v-for="(scene,k) in hostData.scenes" class="scene-iterm" @click="setScene(scene)" v-show="k != 0">
         <i v-if="hostData.usedScene == scene.roleName">✓</i>
 
         <b :style="{background:scene.color}"></b>{{scene.name}}
+      </div>
+      <hr>
+      <div class="scene-iterm">
+        打开场景设定
+      </div>
+      <hr>
+      <div class="scene-iterm">
+        帮助
+      </div>
+      <hr>
+      <div class="scene-iterm">
+        退出 Host 管理
       </div>
     </template>
   </div>
