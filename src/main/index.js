@@ -81,7 +81,7 @@ menubar({
   width: 540,
   height: 425,
   icon: path.join(__static, '/cat.png'),
-  showDockIcon: true
+  // showDockIcon: true
   // alwaysOnTop: true
   // showOnRightClick: true
 })
