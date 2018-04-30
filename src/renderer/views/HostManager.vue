@@ -2,13 +2,18 @@
   <main>
     <el-container>
       <el-aside>
-        <div class="demo-color-box" align="center">
-          当前配置
-          <i class="el-icon-view"></i>
-        </div>
-        <hr style="background-color:#DDDDDD;border:1px solid #DDDDDD;" />
         <br/>
-        <div class="demo-color-box">情景</div>
+        <div class="demo-color-box">
+          运行中
+          <i class="el-icon-loading"></i>
+        </div>
+
+        <!-- <hr style="background-color:#DDDDDD;border:1px solid #DDDDDD;" /> -->
+        <div class="demo-color-box" :class="{'current' : 'Common' == currentScene.name}">
+          公共配置
+        </div>
+
+        <div class="demo-color-box">情景配置</div>
         <div class="demo-color-box" :class="{'current' : v.name == currentScene.name}" v-for="(v,k) in scenes" @click="switchScene(v,k)">
           <el-color-picker style="float:left;" v-model="v.color" size="mini" @change="changeColor" :predefine="predefineColors">
 
